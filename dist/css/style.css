@@ -1,0 +1,35 @@
+.dragme {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background: white;
+  margin-left: -10px;
+  margin-top: -10px;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform .3s;
+          transition: transform .3s;
+}
+.dragme:active, .dragme:hover {
+  -webkit-transform: scale(1.5, 1.5);
+          transform: scale(1.5, 1.5);
+}
+
+body {
+  margin: 0;
+}
+
+#div {
+  position: relative;
+  height: 300px;
+  width: 300px;
+  background: -webkit-radial-gradient(192px 132px, circle, #ff00ff, transparent 140px), -webkit-radial-gradient(56px 74px, circle, #12f4e3, transparent 140px), -webkit-radial-gradient(50% 50%, circle, #000, #000 100%);
+  background: radial-gradient(circle at 192px 132px, #ff00ff, transparent 140px), radial-gradient(circle at 56px 74px, #12f4e3, transparent 140px), radial-gradient(circle at 50% 50%, #000, #000 100%);
+  margin: auto;
+}
+
+#coords {
+  text-align: center;
+}
