@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     [].forEach.call(document.querySelectorAll('.dragme'), function(el){
         el.addEventListener('dragstart',drag_start,false);
         draggers.push(new Dragger( el.id, el.offsetLeft+"px", el.offsetTop+"px", "green" ));
-    })
+    });
 
     function Dragger(name, posX, posY, colour){
         this.name = name;
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     Dragger.prototype.getInfo = function(){
         return this.name + " (" + this.posX + "," + this.posY + ") - " + this.colour;
-    }
+    };
     
 
     function drag_start(event) {
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
 
     window.onresize = function(event) {
-        containerWidth = div.offsetWidth,
+        containerWidth = div.offsetWidth;
         containerHeight = div.offsetHeight;
     };
 
@@ -83,8 +83,9 @@ document.addEventListener("DOMContentLoaded", function() {
         div.style.background = gradient.toString();
     }
 
-    function updateValues(){
+    function createRows(){
         var coords = document.getElementById('coords');
+        coords.innerHTML = "";
         for (var i = 0; i < draggers.length; i++) {
 
             var row = coords.insertRow(0);
@@ -102,6 +103,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    createRows();
+
     add.onclick = function(){
         var newE = document.createElement("span");
         newE.setAttribute("draggable","true");
@@ -112,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         newE.setAttribute("id","d"+newN);
         newE.setAttribute("class","dragme");
-        var newColour = setC.value != "" ? setC.value : "blue";
+        var newColour = setC.value !== "" ? setC.value : "blue";
         newE.setAttribute("data-colour",newColour);
         
         div.appendChild(newE);
@@ -120,7 +123,8 @@ document.addEventListener("DOMContentLoaded", function() {
         newE.addEventListener('dragstart',drag_start,false);
         draggers.push(new Dragger( newE.id, newE.offsetLeft+"px", newE.offsetTop+"px", "green" ));
         
-    }
+        createRows();
+    };
 
 
 
