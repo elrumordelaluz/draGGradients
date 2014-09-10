@@ -122,7 +122,11 @@ document.addEventListener("DOMContentLoaded", function() {
             cell4.setAttribute("class","c_colour");
 
             var cell5 = row.insertCell(4);
-            cell5.setAttribute("class","c_del");            
+            cell5.setAttribute("class","c_del");
+            var cell6 = row.insertCell(5);
+            cell6.setAttribute("class","c_deep-slider");
+            var cell7 = row.insertCell(6);
+            cell7.setAttribute("class","c_deep-value");
 
             cell1.innerHTML = draggers[i].name;
             cell2.innerHTML = draggers[i].posX;
@@ -136,8 +140,43 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelector('.del_item').onclick = function(){
                 delItem(this.dataset.del); 
             }
+
+            var sliderDeep = document.createElement("input");
+            sliderDeep.setAttribute('id','slider_' + draggers[i].name);
+            sliderDeep.setAttribute('type','range');
+            sliderDeep.setAttribute('min','1');
+            sliderDeep.setAttribute('max','100');
+            sliderDeep.setAttribute('value',parseInt(draggers[i].deep));
+            
+            cell6.appendChild(sliderDeep);
+
+            var valueDeep = document.createElement("input");
+            valueDeep.setAttribute('id','value_' + draggers[i].name);
+            valueDeep.setAttribute('type','text');
+            valueDeep.setAttribute('size','2');
+            cell7.appendChild(valueDeep);
+
+            printValue('slider_'+draggers[i].name, 'value_'+draggers[i].name);
+            
+            document.querySelector('[id*=slider_]').onchange = function(){
+                var id = this.id.replace('slider_','')
+                printValue(this.id, 'value_' + id);
+                document.getElementById(id).dataset.deep = this.value + "%";
+                var index = arrayObjectIndexOf(draggers, id, "name"); // 1
+                if (index > -1) {
+                    draggers[index].deep = this.value + "%";
+                }
+                createGradient();
+            }
         }
 
+    }
+
+    
+    function printValue(sliderID, textbox) {
+        var x = document.getElementById(textbox);
+        var y = document.getElementById(sliderID);
+        x.value = y.value;
     }
 
     
@@ -149,6 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
             tr.querySelector(".c_posX").innerHTML = draggers[i].posX;
             tr.querySelector(".c_posY").innerHTML = draggers[i].posY;
             tr.querySelector(".c_colour").innerHTML = draggers[i].colour;
+            tr.querySelector(".c_deep").innerHTML = draggers[i].deep;
         }
     }
 
