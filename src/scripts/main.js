@@ -11,18 +11,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     [].forEach.call(document.querySelectorAll('.dragme'), function(el){
         el.addEventListener('dragstart',drag_start,false);
-        draggers.push(new Dragger( el.id, el.offsetLeft+"px", el.offsetTop+"px", "green" ));
+        draggers.push(new Dragger( el.id, el.offsetLeft+"px", el.offsetTop+"px", "green" , "100%"));
     });
 
-    function Dragger(name, posX, posY, colour){
+    function Dragger(name, posX, posY, colour, deep){
         this.name = name;
         this.posX = posX;
         this.posY = posY;
         this.colour = colour;
+        this.deep = deep;
     }
 
     Dragger.prototype.getInfo = function(){
-        return this.name + " (" + this.posX + "," + this.posY + ") - " + this.colour;
+        return this.name + " (" + this.posX + "," + this.posY + ") - " + this.colour + " - " + this.deep;
     };
     
 
@@ -55,12 +56,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 draggers[i].posX = dm.style.left;
                 draggers[i].posY = dm.style.top;
                 draggers[i].colour = dm.dataset.colour;
+                draggers[i].deep = dm.dataset.deep;
                 console.log(draggers[i].getInfo());
             }
         }
 
         createGradient();
-        // updateValues();
+        updateRows();
         
         event.preventDefault(); 
         return false;
@@ -76,30 +78,77 @@ document.addEventListener("DOMContentLoaded", function() {
     function createGradient(){
         var gradient = [];
         for (var i = 0; i < draggers.length; i++) {
-           gradient.push('radial-gradient(circle at ' + draggers[i].posX + ' ' + draggers[i].posY + ', ' + draggers[i].colour +', transparent 100%)');
+           gradient.push('radial-gradient(circle at ' + draggers[i].posX + ' ' + draggers[i].posY + ', ' + draggers[i].colour +', transparent ' + draggers[i].deep + ')');
         }
         gradient.push('radial-gradient(circle at 50% 50%, #000, #000 100%)');
         
         div.style.background = gradient.toString();
     }
 
+    function arrayObjectIndexOf(myArray, searchTerm, property) {
+        for(var i = 0, len = myArray.length; i < len; i++) {
+            if (myArray[i][property] === searchTerm) return i;
+        }
+        return -1;
+    }
+    function delItem(item){
+        var point = document.getElementById(item);
+        var details = document.getElementById('r_'+item);
+        point.parentNode.removeChild(point);
+        details.parentNode.removeChild(details);
+        var index = arrayObjectIndexOf(draggers, item, "name"); // 1
+        if (index > -1) {
+            draggers.splice(index, 1);
+        }
+        createGradient();
+        console.log(draggers);
+    }
+
     function createRows(){
         var coords = document.getElementById('coords');
         coords.innerHTML = "";
+        
         for (var i = 0; i < draggers.length; i++) {
 
             var row = coords.insertRow(0);
+            row.setAttribute("id","r_" + draggers[i].name);
             var cell1 = row.insertCell(0);
+            cell1.setAttribute("class","c_name");
             var cell2 = row.insertCell(1);
+            cell2.setAttribute("class","c_posX");
             var cell3 = row.insertCell(2);
+            cell3.setAttribute("class","c_posY");
+            var cell4 = row.insertCell(3);
+            cell4.setAttribute("class","c_colour");
+
+            var cell5 = row.insertCell(4);
+            cell5.setAttribute("class","c_del");            
 
             cell1.innerHTML = draggers[i].name;
             cell2.innerHTML = draggers[i].posX;
             cell3.innerHTML = draggers[i].posY;
-           // var tr = document.getElementById("i_" + draggers[i].name);
-           // tr.querySelectorAll("td")[0].innerHTML = draggers[i].name;
-           // tr.querySelectorAll("td")[1].innerHTML = draggers[i].posX;
-           // tr.querySelectorAll("td")[2].innerHTML = draggers[i].posY;
+            cell4.innerHTML = draggers[i].colour;
+
+            var delBtn = document.createElement("button");
+            delBtn.setAttribute('class','del_item');
+            delBtn.setAttribute('data-del', draggers[i].name);
+            cell5.appendChild(delBtn);
+            document.querySelector('.del_item').onclick = function(){
+                delItem(this.dataset.del); 
+            }
+        }
+
+    }
+
+    
+
+    function updateRows(){
+        for (var i = 0; i < draggers.length; i++) {
+            var tr = document.getElementById("r_" + draggers[i].name);
+            tr.querySelector(".c_name").innerHTML = draggers[i].name;
+            tr.querySelector(".c_posX").innerHTML = draggers[i].posX;
+            tr.querySelector(".c_posY").innerHTML = draggers[i].posY;
+            tr.querySelector(".c_colour").innerHTML = draggers[i].colour;
         }
     }
 
@@ -108,20 +157,24 @@ document.addEventListener("DOMContentLoaded", function() {
     add.onclick = function(){
         var newE = document.createElement("span");
         newE.setAttribute("draggable","true");
-        
-        var lastN = draggers[draggers.length - 1].name;
-        lastN = lastN.replace('d','');
-        newN = parseInt(lastN) + 1;
+        if(draggers.length > 0){
+            var lastN = draggers[draggers.length - 1].name;
+            lastN = lastN.replace('d','');
+            newN = parseInt(lastN) + 1;    
+        } else {
+            newN = 1;
+        }
 
         newE.setAttribute("id","d"+newN);
         newE.setAttribute("class","dragme");
         var newColour = setC.value !== "" ? setC.value : "blue";
         newE.setAttribute("data-colour",newColour);
+        newE.setAttribute("data-deep","50%");
         
         div.appendChild(newE);
 
         newE.addEventListener('dragstart',drag_start,false);
-        draggers.push(new Dragger( newE.id, newE.offsetLeft+"px", newE.offsetTop+"px", "green" ));
+        draggers.push(new Dragger( newE.id, newE.offsetLeft+"px", newE.offsetTop+"px", newColour , "50%"));
         
         createRows();
     };
