@@ -26,8 +26,8 @@ body, html {
   position: relative;
   width: 100%;
   height: 100%;
-  background: -webkit-radial-gradient(50% 50%, circle, #000, #000 100%);
-  background: radial-gradient(circle at 50% 50%, #000, #000 100%);
+  background: -webkit-radial-gradient(50% 50%, circle, rgba(255, 255, 255, 0.49804), transparent 50%), -webkit-radial-gradient(50% 50%, circle, black, black 100%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.49804), transparent 50%), radial-gradient(circle at 50% 50%, black, black 100%);
   margin: auto;
 }
 

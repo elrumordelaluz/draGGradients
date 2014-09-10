@@ -1,5 +1,22 @@
 document.addEventListener("DOMContentLoaded", function() {
     
+    Array.prototype.move = function (old_index, new_index) {
+        while (old_index < 0) {
+            old_index += this.length;
+        }
+        while (new_index < 0) {
+            new_index += this.length;
+        }
+        if (new_index >= this.length) {
+            var k = new_index - this.length;
+            while ((k--) + 1) {
+                this.push(undefined);
+            }
+        }
+        this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+        return this; // for testing purposes
+    };
+
     var draggerData,
         div = document.getElementById('div'),
         i = 0,
@@ -11,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     [].forEach.call(document.querySelectorAll('.dragme'), function(el){
         el.addEventListener('dragstart',drag_start,false);
-        draggers.push(new Dragger( el.id, el.offsetLeft+"px", el.offsetTop+"px", "green" , "100%"));
+        draggers.push(new Dragger( el.id, el.offsetLeft*100/containerWidth + '%', el.offsetTop*100/containerHeight + '%', "rgba(255,255,255,.5)" , "50%"));
     });
 
     function Dragger(name, posX, posY, colour, deep){
@@ -57,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 draggers[i].posY = dm.style.top;
                 draggers[i].colour = dm.dataset.colour;
                 draggers[i].deep = dm.dataset.deep;
-                console.log(draggers[i].getInfo());
+                // console.log(draggers[i].getInfo());
             }
         }
 
@@ -104,11 +121,19 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(draggers);
     }
 
+    function upItem(pos){
+        if(pos>0){
+            draggers.move(pos, pos-1);
+            createRows();
+            createGradient();
+        }
+        console.log(draggers);
+    }
     function createRows(){
         var coords = document.getElementById('coords');
         coords.innerHTML = "";
         
-        for (var i = 0; i < draggers.length; i++) {
+        for (var i = draggers.length -1; i >= 0; i--) {
 
             var row = coords.insertRow(0);
             row.setAttribute("id","r_" + draggers[i].name);
@@ -127,6 +152,8 @@ document.addEventListener("DOMContentLoaded", function() {
             cell6.setAttribute("class","c_deep-slider");
             var cell7 = row.insertCell(6);
             cell7.setAttribute("class","c_deep-value");
+            var cell8 = row.insertCell(7);
+            cell8.setAttribute("class","c_up");
 
             cell1.innerHTML = draggers[i].name;
             cell2.innerHTML = draggers[i].posX;
@@ -136,6 +163,8 @@ document.addEventListener("DOMContentLoaded", function() {
             var delBtn = document.createElement("button");
             delBtn.setAttribute('class','del_item');
             delBtn.setAttribute('data-del', draggers[i].name);
+            var x = document.createTextNode("x");
+            delBtn.appendChild(x);
             cell5.appendChild(delBtn);
             document.querySelector('.del_item').onclick = function(){
                 delItem(this.dataset.del); 
@@ -168,8 +197,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 createGradient();
             }
-        }
 
+            var upBtn = document.createElement("button");
+            upBtn.setAttribute('class','up_item');
+            upBtn.setAttribute('data-level', i);
+            var u = document.createTextNode("^");
+            upBtn.appendChild(u);
+            cell8.appendChild(upBtn);
+            document.querySelector('.up_item').onclick = function(){
+                upItem(this.dataset.level);
+            }
+        }
     }
 
     
@@ -188,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function() {
             tr.querySelector(".c_posX").innerHTML = draggers[i].posX;
             tr.querySelector(".c_posY").innerHTML = draggers[i].posY;
             tr.querySelector(".c_colour").innerHTML = draggers[i].colour;
-            tr.querySelector(".c_deep").innerHTML = draggers[i].deep;
         }
     }
 
@@ -214,9 +251,10 @@ document.addEventListener("DOMContentLoaded", function() {
         div.appendChild(newE);
 
         newE.addEventListener('dragstart',drag_start,false);
-        draggers.push(new Dragger( newE.id, newE.offsetLeft+"px", newE.offsetTop+"px", newColour , "50%"));
+        draggers.push(new Dragger( newE.id, newE.offsetLeft*100/containerWidth + '%', newE.offsetTop*100/containerHeight + '%', newColour , "50%"));
         
         createRows();
+        createGradient();
     };
 
 
