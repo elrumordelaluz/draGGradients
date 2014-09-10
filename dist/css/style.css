@@ -5,29 +5,41 @@
   width: 10px;
   height: 10px;
   background: white;
-  margin-left: -10px;
-  margin-top: -10px;
+  -webkit-transform: translateX(-5px) translateY(-5px);
+          transform: translateX(-5px) translateY(-5px);
   border-radius: 50%;
   cursor: pointer;
   -webkit-transition: -webkit-transform .3s;
           transition: transform .3s;
 }
 .dragme:active, .dragme:hover {
-  -webkit-transform: scale(1.5, 1.5);
-          transform: scale(1.5, 1.5);
+  -webkit-transform: translateX(-5px) translateY(-5px) scale(1.5, 1.5);
+          transform: translateX(-5px) translateY(-5px) scale(1.5, 1.5);
 }
 
-body {
+body, html {
   margin: 0;
+  height: 100%;
 }
 
 #div {
   position: relative;
-  height: 300px;
-  width: 300px;
-  background: -webkit-radial-gradient(192px 132px, circle, #ff00ff, transparent 140px), -webkit-radial-gradient(56px 74px, circle, #12f4e3, transparent 140px), -webkit-radial-gradient(50% 50%, circle, #000, #000 100%);
-  background: radial-gradient(circle at 192px 132px, #ff00ff, transparent 140px), radial-gradient(circle at 56px 74px, #12f4e3, transparent 140px), radial-gradient(circle at 50% 50%, #000, #000 100%);
+  width: 100%;
+  height: 100%;
+  background: -webkit-radial-gradient(50% 50%, circle, #000, #000 100%);
+  background: radial-gradient(circle at 50% 50%, #000, #000 100%);
   margin: auto;
+}
+
+.controls {
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 #coords {

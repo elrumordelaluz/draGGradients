@@ -8,11 +8,17 @@
 <body>
 
 	<div id="div">
-	  <span draggable="true" class="dragme" id="d1"></span>
-	  <span draggable="true" class="dragme" id="d2"></span>
+	  <span draggable="true" class="dragme" id="d1" data-colour="rgba(255,255,255,.5)"></span>
+	  
 	</div> 
 
-	<div id="coords">coord</div>
+	<div class="controls">
+		<table id="coords">
+			
+		</table>
+		<input type="text" id="set_colour" placeholder="Insert colour">
+		<button id="add_point">+</button>
+	</div>
 	<script type="text/javascript" src="dist/js/main.js"></script>
 </body>
 </html>
