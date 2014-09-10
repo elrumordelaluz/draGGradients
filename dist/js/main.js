@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         createGradient();
-        updateValues();
+        // updateValues();
         
         event.preventDefault(); 
         return false;
