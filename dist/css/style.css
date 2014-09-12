@@ -32,12 +32,14 @@ body, html {
 }
 
 .controls {
-  padding: 20px;
   position: absolute;
   top: 0;
   left: 0;
   color: white;
+}
+.controls td {
   background-color: rgba(255, 255, 255, 0.2);
+  padding: 10px;
 }
 
 #coords {

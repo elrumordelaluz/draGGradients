@@ -17,6 +17,31 @@ document.addEventListener("DOMContentLoaded", function() {
         return this; // for testing purposes
     };
 
+
+    var testColor = function(str) {
+        var dummy = document.createElement('div');
+        dummy.style.color = str;
+        
+        // Is the syntax valid?
+        if (!dummy.style.color) {
+            return null;
+        }
+        
+        document.head.appendChild(dummy);
+        
+        var normalized = getComputedStyle(dummy).color;
+        
+        document.head.removeChild(dummy);
+        
+        if (!normalized) {
+            return null;
+        }
+        
+        var rgb = normalized.match(/\((\d+), (\d+), (\d+)/);
+
+        return true;
+    };
+
     var draggerData,
         div = document.getElementById('div'),
         i = 0,
@@ -24,11 +49,12 @@ document.addEventListener("DOMContentLoaded", function() {
         containerWidth = div.offsetWidth,
         containerHeight = div.offsetHeight,
         add = document.getElementById('add_point'),
-        setC = document.getElementById('set_colour');
+        setC = document.getElementById('set_colour'),
+        coords = document.getElementById('coords');
 
     [].forEach.call(document.querySelectorAll('.dragme'), function(el){
         el.addEventListener('dragstart',drag_start,false);
-        draggers.push(new Dragger( el.id, el.offsetLeft*100/containerWidth + '%', el.offsetTop*100/containerHeight + '%', "rgba(255,255,255,.5)" , "50%"));
+        draggers.push(new Dragger( el.id, (el.offsetLeft*100/containerWidth).toFixed(2) + '%', (el.offsetTop*100/containerHeight).toFixed(2) + '%', "rgba(255,255,255,.5)" , "50%"));
     });
 
     function Dragger(name, posX, posY, colour, deep){
@@ -130,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(draggers);
     }
     function createRows(){
-        var coords = document.getElementById('coords');
+        
         coords.innerHTML = "";
         
         for (var i = draggers.length -1; i >= 0; i--) {
@@ -235,16 +261,16 @@ document.addEventListener("DOMContentLoaded", function() {
         var newE = document.createElement("span");
         newE.setAttribute("draggable","true");
         if(draggers.length > 0){
-            var lastN = draggers[draggers.length - 1].name;
-            lastN = lastN.replace('d','');
-            newN = parseInt(lastN) + 1;    
+            newN = draggers.length + 1;    
         } else {
             newN = 1;
         }
 
         newE.setAttribute("id","d"+newN);
         newE.setAttribute("class","dragme");
-        var newColour = setC.value !== "" ? setC.value : "blue";
+        var newColour = (setC.value !== "" && testColor(setC.value) == true) ? setC.value : "blue";
+        
+
         newE.setAttribute("data-colour",newColour);
         newE.setAttribute("data-deep","50%");
         
