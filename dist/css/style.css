@@ -5,6 +5,7 @@
   width: 10px;
   height: 10px;
   background: white;
+  border: 2px solid black;
   -webkit-transform: translateX(-5px) translateY(-5px);
           transform: translateX(-5px) translateY(-5px);
   border-radius: 50%;
@@ -38,7 +39,7 @@ body {
 
 .points {
   position: absolute;
-  top: 25px;
+  top: 30px;
   right: 0;
   color: white;
   font-weight: 100;
@@ -48,8 +49,12 @@ body {
   -webkit-transform: translateX(100%) translateX(-40px);
           transform: translateX(100%) translateX(-40px);
   /*&:hover, */
+  min-height: 30px;
+  min-width: 400px;
 }
 .points td {
+  -webkit-transition: background-color .3s;
+          transition: background-color .3s;
   background-color: rgba(255, 255, 255, 0.2);
   padding: 4px 10px;
   border: none;
@@ -69,9 +74,11 @@ body {
   height: 15px;
   padding: 5px;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 3px;
+  right: 5px;
   cursor: pointer;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
 }
 .conf-opener:hover svg {
   -webkit-transition: -webkit-transform 1s;
@@ -155,6 +162,13 @@ body {
   margin: 0;
   text-align: center;
   font-size: 16px;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+  line-height: 20px;
+}
+#add_point:hover {
+  background-color: #1abc9c;
 }
 
 .c_name {
@@ -182,15 +196,34 @@ body {
   height: 20px;
   cursor: pointer;
 }
-
-.del_item:hover {
-  background-color: #c0392b;
+.del_item svg, .up_item svg {
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.up_item:hover {
-  background-color: #3498db;
+.del_item:hover path {
+  fill: #c0392b;
+}
+
+.up_item:hover path {
+  fill: #3498db;
 }
 
 #coords {
   text-align: center;
+}
+
+#help {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  border: 0;
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.current td {
+  background-color: rgba(255, 255, 255, 0.5);
 }

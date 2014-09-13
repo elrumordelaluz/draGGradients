@@ -50,7 +50,8 @@ document.addEventListener("DOMContentLoaded", function() {
         containerHeight = div.offsetHeight,
         add = document.getElementById('add_point'),
         setC = document.getElementById('set_colour'),
-        coords = document.getElementById('coords');
+        coords = document.getElementById('coords'),
+        openConfig = document.getElementById('open_config');
 
     [].forEach.call(document.querySelectorAll('.dragme'), function(el){
         el.addEventListener('dragstart',drag_start,false);
@@ -76,8 +77,11 @@ document.addEventListener("DOMContentLoaded", function() {
         draggerData = [  event.target.id,
                         (parseInt(style.getPropertyValue("left"),10) - event.clientX),
                         (parseInt(style.getPropertyValue("top"),10) - event.clientY) ];
-    
+
         event.dataTransfer.setData("text/plain",draggerData);
+
+        // highlighting actual
+        document.getElementById('r_' +  event.target.id).classList.add('current');
     }
 
     function drag_over(event) { 
@@ -107,6 +111,8 @@ document.addEventListener("DOMContentLoaded", function() {
         createGradient();
         updateRows();
         
+        document.getElementById('r_' +  event.target.id).classList.remove('current');
+
         event.preventDefault(); 
         return false;
     }  
@@ -143,6 +149,10 @@ document.addEventListener("DOMContentLoaded", function() {
         if (index > -1) {
             draggers.splice(index, 1);
         }
+        if(draggers.length == 0){
+            openConfig.checked = false;
+        }
+        createRows();
         createGradient();
         console.log(draggers);
     }
@@ -190,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
             delBtn.setAttribute('class','del_item');
             delBtn.setAttribute('data-del', draggers[i].name);
             //var x = document.createTextNode("del");
-            delBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path style="fill:white;" d="M50,0C22.388,0,0,22.388,0,50s22.388,50,50,50s50-22.388,50-50S77.612,0,50,0z M74.731,65.894  l-8.838,8.838L50,58.838L34.106,74.731l-8.838-8.838L41.162,50L25.269,34.106l8.838-8.838L50,41.162l15.894-15.894l8.838,8.838L58.838,50L74.731,65.894z"/></svg>';
+            delBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="white" d="M50,0C22.388,0,0,22.388,0,50s22.388,50,50,50s50-22.388,50-50S77.612,0,50,0z M74.731,65.894  l-8.838,8.838L50,58.838L34.106,74.731l-8.838-8.838L41.162,50L25.269,34.106l8.838-8.838L50,41.162l15.894-15.894l8.838,8.838L58.838,50L74.731,65.894z"/></svg>';
             cell7.appendChild(delBtn);
             document.querySelector('.del_item').onclick = function(){
                 delItem(this.dataset.del); 
@@ -227,8 +237,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var upBtn = document.createElement("button");
             upBtn.setAttribute('class','up_item');
             upBtn.setAttribute('data-level', i);
-            var u = document.createTextNode("up");
-            upBtn.appendChild(u);
+            upBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="white" d="M87.031,16.719c-0.99-1.146-2.031-2.213-3.125-3.203c-1.146-0.99-2.631-2.135-4.453-3.438l-2.031-1.484C74.244,6.25,70.053,4.219,64.844,2.5C59.635,0.833,54.688,0,50,0s-9.635,0.833-14.844,2.5c-5.208,1.719-9.922,4.115-14.141,7.188S13.125,16.406,10,20.625C6.823,24.896,4.375,29.688,2.656,35C0.885,40.312,0,45.312,0,50s0.885,9.688,2.656,15c1.719,5.312,3.802,9.635,6.25,12.969l0.703,0.859c1.979,2.709,3.776,4.869,5.391,6.484c1.562,1.562,3.594,3.256,6.094,5.078c2.552,1.822,4.792,3.203,6.719,4.141c1.927,0.99,4.427,1.979,7.5,2.969l1.562,0.469C40.938,99.322,45.312,100,50,100s9.062-0.678,13.125-2.031l1.797-0.547c2.916-0.938,5.287-1.85,7.109-2.734c1.875-0.885,3.697-1.928,5.469-3.125c1.719-1.197,3.203-2.291,4.453-3.281c1.25-1.041,2.525-2.24,3.828-3.594c1.303-1.406,2.787-3.256,4.453-5.547l0.391-0.547c1.875-2.604,3.385-5.053,4.531-7.344c1.094-2.344,2.162-5.365,3.203-9.062l0.078-0.156C99.479,58.178,100,54.166,100,50c0-4.167-0.834-8.958-2.5-14.375c-1.615-5.365-3.516-9.557-5.703-12.578l-1.25-1.719C89.193,19.453,88.021,17.917,87.031,16.719M48.438,26.719h3.125L69.531,62.5H30.469L48.438,26.719"/></svg>';
             cell8.appendChild(upBtn);
             document.querySelector('.up_item').onclick = function(){
                 upItem(this.dataset.level);
@@ -266,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    add.onclick = function(){
+    var addItem = function(){
         var newE = document.createElement("span");
         newE.setAttribute("draggable","true");
         
@@ -286,15 +295,13 @@ document.addEventListener("DOMContentLoaded", function() {
         div.appendChild(newE);
 
         newE.addEventListener('dragstart',drag_start,false);
-        draggers.push(new Dragger( newE.id, newE.offsetLeft*100/containerWidth + '%', newE.offsetTop*100/containerHeight + '%', newColour , "50%"));
+        draggers.push(new Dragger( newE.id, (newE.offsetLeft*100/containerWidth).toFixed(2) + '%', (newE.offsetTop*100/containerHeight).toFixed(2) + '%', newColour , "50%"));
         
         createRows();
         createGradient();
-
-        
     };
 
-
+    add.onclick = addItem;
 
 
     div.addEventListener('dragover',drag_over,false); 
