@@ -19,6 +19,10 @@ body, html {
   margin: 0;
   height: 100%;
 }
+body {
+  font-family: 'Lato', sans-serif;
+  overflow: hidden;
+}
 #div {
   position: relative;
   width: 100%;
@@ -26,14 +30,103 @@ body, html {
   background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.498039), transparent 50%), radial-gradient(circle at 50% 50%, rgb(0, 0, 0), rgb(0, 0, 0) 100%);
   margin: auto;
 } 
-.controls {
+.points {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 25px;
+  right: 0;
   color:white;
+  font-weight: 100;
+  font-size: 12px;
   td {
     background-color: rgba(255,255,255,0.2);
-    padding: 10px
+    padding: 4px 10px;
+    border:none;
+    margin: 0;
+  }
+  transition:transform .3s;
+  transform:translateX(100%) translateX(-40px);
+  /*&:hover, */#open_config:checked ~ & {
+    transform: translateX(0px);
   }
 }
+#open_config { display: none; }
+.conf-opener {
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor:pointer;
+  &:hover svg {
+    transition: transform 1s;
+    transform: rotate(180deg);
+    #open_config:checked ~ & {
+      transform: rotate(-180deg);
+    }
+  }
+  path {
+    fill:#fff;
+    #open_config:checked ~ & {
+      fill:#7f7f7f;
+    }
+  }
+}
+
+.add {
+  position: absolute;
+  bottom: -30px;
+  left: 2px;
+  color:white;
+  font-weight: 100;
+  font-size: 12px;
+}
+#set_colour,#add_point {
+  border:0;
+  background-color: rgba(255,255,255,0.2);
+  height: 30px;
+  outline: none;
+  margin: 0;
+  float: left;
+  line-height: 30px;
+}
+#set_colour {
+  height: 28px;
+  margin-left: 2px;
+  padding-left: 10px;
+}
+#add_point {
+  cursor:pointer;
+  display: block;
+  width: 40px;
+  margin: 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.c_name { 
+  text-transform: uppercase;
+  width: 20px;
+}
+.c_deep-value {
+  & input {
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    background-color: transparent;
+    text-align: center;
+    border:0;
+    color:white;
+  }
+  &:after { content:'%'}
+}
+
+.del_item, .up_item {
+  border:0;
+  background-color: rgba(255,255,255,0.2);
+  color:white;
+  width: 100%;
+  cursor:pointer;
+}
+
+
 #coords{ text-align: center;}

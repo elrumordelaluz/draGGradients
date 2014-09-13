@@ -22,6 +22,11 @@ body, html {
   height: 100%;
 }
 
+body {
+  font-family: 'Lato', sans-serif;
+  overflow: hidden;
+}
+
 #div {
   position: relative;
   width: 100%;
@@ -31,15 +36,117 @@ body, html {
   margin: auto;
 }
 
-.controls {
+.points {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  color: white;
+  font-weight: 100;
+  font-size: 12px;
+  -webkit-transition: -webkit-transform .3s;
+          transition: transform .3s;
+  -webkit-transform: translateX(100%) translateX(-40px);
+          transform: translateX(100%) translateX(-40px);
+  /*&:hover, */
+}
+.points td {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 4px 10px;
+  border: none;
+  margin: 0;
+}
+#open_config:checked ~ .points {
+  -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+}
+
+#open_config {
+  display: none;
+}
+
+.conf-opener {
+  width: 15px;
+  height: 15px;
+  padding: 5px;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
+  cursor: pointer;
+}
+.conf-opener:hover svg {
+  -webkit-transition: -webkit-transform 1s;
+          transition: transform 1s;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+#open_config:checked ~ .conf-opener:hover svg {
+  -webkit-transform: rotate(-180deg);
+          transform: rotate(-180deg);
+}
+.conf-opener path {
+  fill: #fff;
+}
+#open_config:checked ~ .conf-opener path {
+  fill: #7f7f7f;
+}
+
+.add {
+  position: absolute;
+  bottom: -30px;
+  left: 2px;
+  color: white;
+  font-weight: 100;
+  font-size: 12px;
+}
+
+#set_colour, #add_point {
+  border: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  height: 30px;
+  outline: none;
+  margin: 0;
+  float: left;
+  line-height: 30px;
+}
+
+#set_colour {
+  height: 28px;
+  margin-left: 2px;
+  padding-left: 10px;
+}
+
+#add_point {
+  cursor: pointer;
+  display: block;
+  width: 40px;
+  margin: 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.c_name {
+  text-transform: uppercase;
+  width: 20px;
+}
+
+.c_deep-value input {
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+  background-color: transparent;
+  text-align: center;
+  border: 0;
   color: white;
 }
-.controls td {
+.c_deep-value:after {
+  content: '%';
+}
+
+.del_item, .up_item {
+  border: 0;
   background-color: rgba(255, 255, 255, 0.2);
-  padding: 10px;
+  color: white;
+  width: 100%;
+  cursor: pointer;
 }
 
 #coords {

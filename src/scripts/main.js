@@ -173,11 +173,11 @@ document.addEventListener("DOMContentLoaded", function() {
             cell4.setAttribute("class","c_colour");
 
             var cell5 = row.insertCell(4);
-            cell5.setAttribute("class","c_del");
+            cell5.setAttribute("class","c_deep-slider");
             var cell6 = row.insertCell(5);
-            cell6.setAttribute("class","c_deep-slider");
+            cell6.setAttribute("class","c_deep-value");
             var cell7 = row.insertCell(6);
-            cell7.setAttribute("class","c_deep-value");
+            cell7.setAttribute("class","c_del");            
             var cell8 = row.insertCell(7);
             cell8.setAttribute("class","c_up");
 
@@ -189,9 +189,9 @@ document.addEventListener("DOMContentLoaded", function() {
             var delBtn = document.createElement("button");
             delBtn.setAttribute('class','del_item');
             delBtn.setAttribute('data-del', draggers[i].name);
-            var x = document.createTextNode("x");
+            var x = document.createTextNode("del");
             delBtn.appendChild(x);
-            cell5.appendChild(delBtn);
+            cell7.appendChild(delBtn);
             document.querySelector('.del_item').onclick = function(){
                 delItem(this.dataset.del); 
             }
@@ -203,13 +203,13 @@ document.addEventListener("DOMContentLoaded", function() {
             sliderDeep.setAttribute('max','100');
             sliderDeep.setAttribute('value',parseInt(draggers[i].deep));
             
-            cell6.appendChild(sliderDeep);
+            cell5.appendChild(sliderDeep);
 
             var valueDeep = document.createElement("input");
             valueDeep.setAttribute('id','value_' + draggers[i].name);
             valueDeep.setAttribute('type','text');
             valueDeep.setAttribute('size','2');
-            cell7.appendChild(valueDeep);
+            cell6.appendChild(valueDeep);
 
             printValue('slider_'+draggers[i].name, 'value_'+draggers[i].name);
             
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var upBtn = document.createElement("button");
             upBtn.setAttribute('class','up_item');
             upBtn.setAttribute('data-level', i);
-            var u = document.createTextNode("^");
+            var u = document.createTextNode("up");
             upBtn.appendChild(u);
             cell8.appendChild(upBtn);
             document.querySelector('.up_item').onclick = function(){
