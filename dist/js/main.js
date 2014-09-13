@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         var rgb = normalized.match(/\((\d+), (\d+), (\d+)/);
 
-        return true;
+        return normalized; // for testing purposes
     };
 
     var draggerData,
@@ -82,8 +82,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function drag_over(event) { 
         var dm = document.getElementById(draggerData[0]);
-        dm.style.left = (event.clientX + parseInt(draggerData[1],10))*100/containerWidth + '%';
-        dm.style.top = (event.clientY + parseInt(draggerData[2],10)) *100/containerHeight + '%';
+        dm.style.left = ((event.clientX + parseInt(draggerData[1],10))*100/containerWidth).toFixed(2) + '%';
+        dm.style.top = ((event.clientY + parseInt(draggerData[2],10)) *100/containerHeight).toFixed(2) + '%';
         event.preventDefault();
         return false;
     }
@@ -91,8 +91,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function drop(event) { 
         var dm = document.getElementById(draggerData[0]);
 
-        dm.style.left = (event.clientX + parseInt(draggerData[1],10))*100/containerWidth + '%';
-        dm.style.top = (event.clientY + parseInt(draggerData[2],10)) *100/containerHeight + '%';
+        dm.style.left = ((event.clientX + parseInt(draggerData[1],10))*100/containerWidth).toFixed(2) + '%';
+        dm.style.top = ((event.clientY + parseInt(draggerData[2],10)) *100/containerHeight).toFixed(2) + '%';
 
         for (var i = 0; i < draggers.length; i++) {
             if(draggers[i].name == draggerData[0]){
@@ -257,19 +257,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
     createRows();
 
+    function maxNumber() {
+        var numbers = [];
+        for (var i = 0; i < draggers.length; i++) {
+            numbers.push(parseInt(draggers[i].name.replace('d','')));
+        };
+        return Math.max.apply( Math, numbers );
+    }
+
+
     add.onclick = function(){
         var newE = document.createElement("span");
         newE.setAttribute("draggable","true");
+        
         if(draggers.length > 0){
-            newN = draggers.length + 1;    
+            newN = maxNumber() + 1;    
         } else {
             newN = 1;
         }
 
         newE.setAttribute("id","d"+newN);
         newE.setAttribute("class","dragme");
-        var newColour = (setC.value !== "" && testColor(setC.value) == true) ? setC.value : "blue";
-        
+        var newColour = (setC.value !== "" && testColor(setC.value) !== null) ? setC.value : "blue";
 
         newE.setAttribute("data-colour",newColour);
         newE.setAttribute("data-deep","50%");
@@ -281,6 +290,8 @@ document.addEventListener("DOMContentLoaded", function() {
         
         createRows();
         createGradient();
+
+        
     };
 
 
