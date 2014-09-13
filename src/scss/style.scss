@@ -94,6 +94,22 @@ body {
   height: 28px;
   margin-left: 2px;
   padding-left: 10px;
+  width: 200px;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+  transition: background-color .3s;
+  &:focus {
+    background-color: rgba(255,255,255,0.1);
+    &::-webkit-input-placeholder { color: rgba(255,255,255,0.3); }
+    &:-moz-placeholder { color: rgba(255,255,255,0.3);}
+    &::-moz-placeholder {  color: rgba(255,255,255,0.3);}
+    &:-ms-input-placeholder {   color: rgba(255,255,255,0.3); }
+  }
+  &::-webkit-input-placeholder { color: rgba(255,255,255,0.5); }
+  &:-moz-placeholder { color: rgba(255,255,255,0.5);}
+  &::-moz-placeholder {  color: rgba(255,255,255,0.5);}
+  &:-ms-input-placeholder {   color: rgba(255,255,255,0.5); }
 }
 #add_point {
   cursor:pointer;
@@ -122,11 +138,13 @@ body {
 
 .del_item, .up_item {
   border:0;
-  background-color: rgba(255,255,255,0.2);
+  background-color: transparent;
   color:white;
-  width: 100%;
+  width: 25px;
+  height: 20px;
   cursor:pointer;
 }
-
+.del_item:hover { background-color: #c0392b; }
+.up_item:hover { background-color: #3498db; }
 
 #coords{ text-align: center;}

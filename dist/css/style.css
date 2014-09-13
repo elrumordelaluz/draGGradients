@@ -113,6 +113,39 @@ body {
   height: 28px;
   margin-left: 2px;
   padding-left: 10px;
+  width: 200px;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+  -webkit-transition: background-color .3s;
+          transition: background-color .3s;
+}
+#set_colour:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+#set_colour:focus::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+#set_colour:focus:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+#set_colour:focus::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+#set_colour:focus:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+#set_colour::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+#set_colour:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+#set_colour::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+#set_colour:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 #add_point {
@@ -143,10 +176,19 @@ body {
 
 .del_item, .up_item {
   border: 0;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: transparent;
   color: white;
-  width: 100%;
+  width: 25px;
+  height: 20px;
   cursor: pointer;
+}
+
+.del_item:hover {
+  background-color: #c0392b;
+}
+
+.up_item:hover {
+  background-color: #3498db;
 }
 
 #coords {

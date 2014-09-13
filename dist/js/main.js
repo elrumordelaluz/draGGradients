@@ -189,8 +189,8 @@ document.addEventListener("DOMContentLoaded", function() {
             var delBtn = document.createElement("button");
             delBtn.setAttribute('class','del_item');
             delBtn.setAttribute('data-del', draggers[i].name);
-            var x = document.createTextNode("del");
-            delBtn.appendChild(x);
+            //var x = document.createTextNode("del");
+            delBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path style="fill:white;" d="M50,0C22.388,0,0,22.388,0,50s22.388,50,50,50s50-22.388,50-50S77.612,0,50,0z M74.731,65.894  l-8.838,8.838L50,58.838L34.106,74.731l-8.838-8.838L41.162,50L25.269,34.106l8.838-8.838L50,41.162l15.894-15.894l8.838,8.838L58.838,50L74.731,65.894z"/></svg>';
             cell7.appendChild(delBtn);
             document.querySelector('.del_item').onclick = function(){
                 delItem(this.dataset.del); 
@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
         newE.setAttribute("id","d"+newN);
         newE.setAttribute("class","dragme");
         var newColour = (setC.value !== "" && testColor(setC.value) !== null) ? setC.value : "blue";
-
+        setC.value = "";
         newE.setAttribute("data-colour",newColour);
         newE.setAttribute("data-deep","50%");
         
