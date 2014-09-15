@@ -1,3 +1,90 @@
+(function(){
+ 
+    // pass to string.replace for camel to hyphen
+    var hyphenate = function(a, b, c){
+        return b + "-" + c.toLowerCase();
+    }
+ 
+    // get computed style property
+    var getStyle = function(target, prop){
+        if(window.getComputedStyle){ // gecko and webkit
+            prop = prop.replace(/([a-z])([A-Z])/, hyphenate);  // requires hyphenated, not camel
+            return window.getComputedStyle(target, null).getPropertyValue(prop);
+        }
+        if(target.currentStyle){
+            return target.currentStyle[prop];
+        }
+        return target.style[prop];
+    }
+ 
+    // get object with units
+    var getUnits = function(target, prop){
+ 
+        var baseline = 100;  // any number serves 
+        var item;  // generic iterator
+ 
+        var map = {  // list of all units and their identifying string
+            pixel : "px",
+            percent : "%",
+            inch: "in",
+            cm : "cm",
+            mm : "mm",
+            point : "pt",
+            pica : "pc",
+            em : "em",
+            ex : "ex"
+        };
+ 
+        var factors = {};  // holds ratios
+        var units = {};  // holds calculated values
+ 
+        var value = getStyle(target, prop);  // get the computed style value
+ 
+        var numeric = value.match(/\d+/);  // get the numeric component
+        if(numeric === null) {  // if match returns null, throw error...  use === so 0 values are accepted
+            throw "Invalid property value returned";
+        }
+        numeric = numeric[0];  // get the string
+ 
+        var unit = value.match(/\D+$/);  // get the existing unit
+        unit = (unit == null) ? map.pixel : unit[0]; // if its not set, assume px - otherwise grab string
+ 
+        var activeMap;  // a reference to the map key for the existing unit
+        for(item in map){
+            if(map[item] == unit){
+                activeMap = item;
+                break;
+            }
+        }
+        if(!activeMap) { // if existing unit isn't in the map, throw an error
+            throw "Unit not found in map";
+        }
+ 
+        var temp = document.createElement("div");  // create temporary element
+        temp.style.overflow = "hidden";  // in case baseline is set too low
+        temp.style.visibility = "hidden";  // no need to show it
+ 
+        target.parentElement.appendChild(temp); // insert it into the parent for em and ex  
+ 
+        for(item in map){  // set the style for each unit, then calculate it's relative value against the baseline
+            temp.style.width = baseline + map[item];
+            factors[item] = baseline / temp.offsetWidth;
+        }
+ 
+        for(item in map){  // use the ratios figured in the above loop to determine converted values
+            units[item] = numeric * (factors[item] * factors[activeMap]);
+        }
+ 
+        target.parentElement.removeChild(temp);  // clean up
+ 
+        return units;  // returns the object with converted unit values...
+ 
+    }
+ 
+    // expose           
+    window.getUnits = this.getUnits = getUnits;
+ 
+})();
 /**
  * jscolor, JavaScript Color Picker
  *
@@ -1049,12 +1136,29 @@ document.addEventListener("DOMContentLoaded", function() {
         add = document.getElementById('add_point'),
         setC = document.getElementById('set_colour'),
         coords = document.getElementById('coords'),
-        openConfig = document.getElementById('open_config');
+        openConfig = document.getElementById('open_config'),
+        bgColor = document.getElementById('bg-color'),
+        pointsOp = document.getElementById('points-op');
 
     [].forEach.call(document.querySelectorAll('.dragme'), function(el){
         el.addEventListener('dragstart',drag_start,false);
         draggers.push(new Dragger( el.id, (el.offsetLeft*100/containerWidth).toFixed(2) + '%', (el.offsetTop*100/containerHeight).toFixed(2) + '%', "rgba(255,255,255,.5)" , "50%"));
     });
+
+
+
+    document.body.onkeyup = function(e){
+        if(e.keyCode == 27){
+           if(openConfig.checked == true){
+                openConfig.checked = false;
+            } else {
+                openConfig.checked = true;
+            }
+        }
+    }
+
+
+
 
     function Dragger(name, posX, posY, colour, deep){
         this.name = name;
@@ -1069,6 +1173,8 @@ document.addEventListener("DOMContentLoaded", function() {
     };
     
 
+
+
     function drag_start(event) {
         var style = window.getComputedStyle(event.target, null);
 
@@ -1077,7 +1183,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         (parseInt(style.getPropertyValue("top"),10) - event.clientY) ];
 
         event.dataTransfer.setData("text/plain",draggerData);
-
+        
+        console.log(style.getPropertyValue("left"));
         // highlighting actual
         document.getElementById('r_' +  event.target.id).classList.add('current');
     }
@@ -1106,15 +1213,19 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        createGradient();
+        createGradient(bgColor.value);
         updateRows();
         
-        document.getElementById('r_' +  event.target.id).classList.remove('current');
+        document.getElementById('r_' +  dm.id).classList.remove('current');
 
         event.preventDefault(); 
         return false;
     }  
 
+    bgColor.onchange = function(){
+        createGradient(this.value);
+        pointsOp.style.color = this.value;
+    }
     
 
     window.onresize = function(event) {
@@ -1122,13 +1233,18 @@ document.addEventListener("DOMContentLoaded", function() {
         containerHeight = div.offsetHeight;
     };
 
-    function createGradient(){
+    function createGradient(bg){
         var gradient = [];
         for (var i = 0; i < draggers.length; i++) {
            gradient.push('radial-gradient(circle at ' + draggers[i].posX + ' ' + draggers[i].posY + ', ' + draggers[i].colour +', transparent ' + draggers[i].deep + ')');
         }
-        gradient.push('radial-gradient(circle at 50% 50%, #000, #000 100%)');
+        if(bg != undefined){
+            gradient.push('radial-gradient(circle at 50% 50%, '+bg+', '+bg+' 100%)');
+        } else {
+            gradient.push('radial-gradient(circle at 50% 50%, #000, #000 100%)');    
+        }
         
+
         document.body.style.background = gradient.toString();
     }
 
@@ -1152,7 +1268,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelector('.points').classList.add('empty');
         }
         createRows();
-        createGradient();
+        createGradient(bgColor.value)
         console.log(draggers);
     }
 
@@ -1160,7 +1276,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if(pos>0){
             draggers.move(pos, pos-1);
             createRows();
-            createGradient();
+            createGradient(bgColor.value)
         }
         console.log(draggers);
     }
@@ -1230,7 +1346,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (index > -1) {
                     draggers[index].deep = this.value + "%";
                 }
-                createGradient();
+                createGradient(bgColor.value);
             }
 
             var upBtn = document.createElement("button");
@@ -1298,7 +1414,7 @@ document.addEventListener("DOMContentLoaded", function() {
         draggers.push(new Dragger( newE.id, (newE.offsetLeft*100/containerWidth).toFixed(2) + '%', (newE.offsetTop*100/containerHeight).toFixed(2) + '%', newColour , "50%"));
         
         createRows();
-        createGradient();
+        createGradient(bgColor.value)
     };
 
     add.onclick = addItem;

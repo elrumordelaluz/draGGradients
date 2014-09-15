@@ -221,3 +221,47 @@ body {
     background-color: transparent;
   }
 }
+
+.other-controls {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: 200px;
+}
+#bg-color {
+  width: 20px;
+  height: 20px;
+  border:0;
+  border:1px solid rgba(255,255,255,0.25);
+  display: inline-block;
+  //background-color: rgba(255,255,255,0.4)!important;
+  text-indent: -9999px;
+}
+
+#points-op {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  vertical-align: bottom;
+  li {
+    width: 24px;
+    height: 24px;
+    margin-top: 1px;
+    position: relative;
+    color:inherit;
+    &:after {
+      content:'';
+      width: 16px;
+      height: 16px;
+      left: 4px;
+      top: 4px;
+      background-color: currentColor;
+      border-radius:50%;
+      position: absolute;
+    }
+    &.op-1 { background-color: rgba(255,255,255,0.10); }
+    &.op-2 { background-color: rgba(255,255,255,0.25); }
+    &.op-3 { background-color: rgba(255,255,255,0.40); }
+  }
+}
