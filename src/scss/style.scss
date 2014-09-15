@@ -55,6 +55,13 @@ body {
   }
   min-height: 30px;
   min-width: 400px;
+  &.empty {
+    right:auto;
+    left: 50%;
+    top: 20%;
+    min-width: 260px;
+    transform:translateX(-50%);
+  }
 }
 #open_config { display: none; }
 .conf-opener {

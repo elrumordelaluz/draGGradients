@@ -1149,6 +1149,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         if(draggers.length == 0){
             openConfig.checked = false;
+            document.querySelector('.points').classList.add('empty');
         }
         createRows();
         createGradient();
@@ -1281,6 +1282,7 @@ document.addEventListener("DOMContentLoaded", function() {
             newN = maxNumber() + 1;    
         } else {
             newN = 1;
+            document.querySelector('.points').classList.remove('empty');
         }
 
         newE.setAttribute("id","d"+newN);

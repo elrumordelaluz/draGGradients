@@ -66,6 +66,14 @@ body {
   -webkit-transform: translateX(0px);
           transform: translateX(0px);
 }
+.points.empty {
+  right: auto;
+  left: 50%;
+  top: 20%;
+  min-width: 260px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
 
 #open_config {
   display: none;
