@@ -1041,7 +1041,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     var draggerData,
-        div = document.getElementById('div'),
+        div = document.getElementById('canvas'),
         i = 0,
         draggers = [],
         containerWidth = div.offsetWidth,
@@ -1129,7 +1129,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         gradient.push('radial-gradient(circle at 50% 50%, #000, #000 100%)');
         
-        div.style.background = gradient.toString();
+        document.body.style.background = gradient.toString();
     }
 
     function arrayObjectIndexOf(myArray, searchTerm, property) {

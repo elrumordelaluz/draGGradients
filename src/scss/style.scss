@@ -8,6 +8,7 @@
   border:2px solid black;
   transform: translateX(-5px) translateY(-5px);
   // opacity: 0.5;
+  z-index: 340;
   border-radius: 50%;
   cursor:pointer;
   transition: transform .3s;
@@ -19,21 +20,23 @@
 body, html { 
   margin: 0;
   height: 100%;
+  padding: 0;
 }
 body {
   font-family: 'Lato', sans-serif;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.498039), transparent 50%), radial-gradient(circle at 50% 50%, rgb(0, 0, 0), rgb(0, 0, 0) 100%);
   overflow: hidden;
 }
-#div {
+#canvas {
   position: relative;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.498039), transparent 50%), radial-gradient(circle at 50% 50%, rgb(0, 0, 0), rgb(0, 0, 0) 100%);
-  margin: auto;
+  z-index: 300;
+  //
 } 
 .points {
   position: absolute;
-  top: 30px;
+  top: 34px;
   right: 0;
   color:white;
   font-weight: 100;
@@ -59,7 +62,7 @@ body {
   height: 15px;
   padding: 5px;
   position: absolute;
-  top: 3px;
+  top: 5px;
   right: 5px;
   cursor:pointer;
   transform: rotate(0deg);
@@ -165,18 +168,49 @@ body {
 
 #coords{ text-align: center;}
 #help {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  border:0;
-  background-color: transparent;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
+  
 }
 
 .current {
   td {
     background-color: rgba(255,255,255,0.5);
+  }
+}
+
+.header {
+  position: fixed;
+  top: 5px;
+  left: 10px;
+  z-index: 100;
+  a {
+    text-decoration: none;
+    font-weight: 300;
+    color:white;
+    font-variant: small-caps;
+    font-size: 25px;
+    margin: 0;
+  }
+}
+
+.social {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  border:0;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  li {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin: 5px; 
+  }
+  button {
+    border:0;
+    display:inline-block;
+    background-color: transparent;
   }
 }
