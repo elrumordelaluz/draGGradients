@@ -5,18 +5,21 @@
   width: 10px;
   height: 10px;
   background: white;
-  border: 2px solid black;
+  border: 1px solid black;
   -webkit-transform: translateX(-5px) translateY(-5px);
           transform: translateX(-5px) translateY(-5px);
   z-index: 340;
   border-radius: 50%;
   cursor: pointer;
-  -webkit-transition: -webkit-transform .3s;
-          transition: transform .3s;
+  -webkit-transition: -webkit-transform .3s, opacity .3s;
+          transition: transform .3s, opacity .3s;
 }
 .dragme:active, .dragme:hover {
   -webkit-transform: translateX(-5px) translateY(-5px) scale(1.5, 1.5);
           transform: translateX(-5px) translateY(-5px) scale(1.5, 1.5);
+}
+.dragme.hide {
+  opacity: 0;
 }
 
 body, html {
@@ -27,8 +30,8 @@ body, html {
 
 body {
   font-family: 'Lato', sans-serif;
-  background: -webkit-radial-gradient(50% 50%, circle, rgba(255, 255, 255, 0.49804), transparent 50%), -webkit-radial-gradient(50% 50%, circle, black, black 100%);
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.49804), transparent 50%), radial-gradient(circle at 50% 50%, black, black 100%);
+  background: -webkit-radial-gradient(50% 50%, circle, #fff, transparent 50%), -webkit-radial-gradient(50% 50%, circle, black, black 100%);
+  background: radial-gradient(circle at 50% 50%, #fff, transparent 50%), radial-gradient(circle at 50% 50%, black, black 100%);
   overflow: hidden;
 }
 
@@ -107,6 +110,10 @@ body {
   fill: #7f7f7f;
 }
 
+input:focus, input:active {
+  outline: none;
+}
+
 .add {
   position: absolute;
   bottom: -30px;
@@ -133,7 +140,7 @@ body {
   width: 200px;
   color: white;
   font-family: 'Lato', sans-serif;
-  font-weight: 100;
+  font-weight: 300;
   -webkit-transition: background-color .3s;
           transition: background-color .3s;
 }
@@ -191,6 +198,7 @@ body {
   font-weight: 100;
   background-color: transparent;
   text-align: center;
+  width: 40px;
   border: 0;
   color: white;
 }
@@ -287,30 +295,31 @@ body {
   padding: 0;
   list-style: none;
   vertical-align: bottom;
-}
-#points-op li {
   width: 24px;
   height: 24px;
   margin-top: 1px;
   position: relative;
   color: inherit;
+  background-color: rgba(255, 255, 255, 0.25);
 }
-#points-op li:after {
+#points-op:after {
   content: '';
   width: 16px;
   height: 16px;
   left: 4px;
   top: 4px;
-  background-color: currentColor;
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 50%;
   position: absolute;
 }
-#points-op li.op-1 {
-  background-color: rgba(255, 255, 255, 0.1);
+#points-op.hide:after {
+  background-color: transparent;
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.7);
 }
-#points-op li.op-2 {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-#points-op li.op-3 {
-  background-color: rgba(255, 255, 255, 0.4);
+
+.input_colour {
+  border: 0;
+  padding: 5px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
 }

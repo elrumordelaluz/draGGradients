@@ -1142,7 +1142,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     [].forEach.call(document.querySelectorAll('.dragme'), function(el){
         el.addEventListener('dragstart',drag_start,false);
-        draggers.push(new Dragger( el.id, (el.offsetLeft*100/containerWidth).toFixed(2) + '%', (el.offsetTop*100/containerHeight).toFixed(2) + '%', "rgba(255,255,255,.5)" , "50%"));
+        draggers.push(new Dragger( el.id, (el.offsetLeft*100/containerWidth).toFixed(2) + '%', (el.offsetTop*100/containerHeight).toFixed(2) + '%', "#fff" , "50%"));
     });
 
 
@@ -1157,7 +1157,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-
+    pointsOp.onclick = function(){
+        [].forEach.call(document.querySelectorAll('.dragme'), function(el){
+            el.classList.toggle('hide');
+        });
+        this.classList.toggle('hide');
+    }
 
 
     function Dragger(name, posX, posY, colour, deep){
@@ -1184,7 +1189,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         event.dataTransfer.setData("text/plain",draggerData);
         
-        console.log(style.getPropertyValue("left"));
+        //console.log(style.getPropertyValue("left"));
         // highlighting actual
         document.getElementById('r_' +  event.target.id).classList.add('current');
     }
@@ -1224,7 +1229,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     bgColor.onchange = function(){
         createGradient(this.value);
-        pointsOp.style.color = this.value;
     }
     
 
@@ -1244,8 +1248,17 @@ document.addEventListener("DOMContentLoaded", function() {
             gradient.push('radial-gradient(circle at 50% 50%, #000, #000 100%)');    
         }
         
-
         document.body.style.background = gradient.toString();
+                
+        // Export stuff
+            console.log(gradient.toString());
+            var obj = draggers.reduce(function(o, v, i) {
+              o[i] = v;
+              return o;
+            }, {});
+            console.log(JSON.stringify(obj));
+        // Export stuff
+
     }
 
     function arrayObjectIndexOf(myArray, searchTerm, property) {
@@ -1269,7 +1282,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         createRows();
         createGradient(bgColor.value)
-        console.log(draggers);
+        //console.log(draggers);
     }
 
     function upItem(pos){
@@ -1278,7 +1291,7 @@ document.addEventListener("DOMContentLoaded", function() {
             createRows();
             createGradient(bgColor.value)
         }
-        console.log(draggers);
+        //console.log(draggers);
     }
     function createRows(){
         
@@ -1309,7 +1322,26 @@ document.addEventListener("DOMContentLoaded", function() {
             cell1.innerHTML = draggers[i].name;
             cell2.innerHTML = draggers[i].posX;
             cell3.innerHTML = draggers[i].posY;
-            cell4.innerHTML = draggers[i].colour;
+            //cell4.innerHTML = draggers[i].colour;
+
+            var inputColor = document.createElement("input");
+            inputColor.setAttribute('id','col_' + draggers[i].name);
+            inputColor.setAttribute('type','text');
+            inputColor.setAttribute('class','color {hash:true,caps:false,pickerFaceColor:\'transparent\',pickerFace:3,pickerBorder:0,pickerInsetColor:\'black\'} input_colour');
+            inputColor.setAttribute('value',draggers[i].colour);
+            new jscolor.color(inputColor, {hash:true,caps:false,pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetColor:'black'});
+            cell4.appendChild(inputColor);
+            document.querySelector('[id*=col_]').onchange = function(){
+                var id = this.id.replace('col_','')
+                document.getElementById(id).dataset.colour = this.value;
+                var index = arrayObjectIndexOf(draggers, id, "name"); // 1
+                if (index > -1) {
+                    draggers[index].colour = this.value;
+                }
+                createGradient(bgColor.value);
+            }
+
+
 
             var delBtn = document.createElement("button");
             delBtn.setAttribute('class','del_item');
@@ -1332,11 +1364,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
             var valueDeep = document.createElement("input");
             valueDeep.setAttribute('id','value_' + draggers[i].name);
-            valueDeep.setAttribute('type','text');
+            valueDeep.setAttribute('type','number');
+            valueDeep.setAttribute('min','1');
+            valueDeep.setAttribute('max','100');
+            valueDeep.setAttribute('pattern','[0-9]');
             valueDeep.setAttribute('size','2');
             cell6.appendChild(valueDeep);
 
             printValue('slider_'+draggers[i].name, 'value_'+draggers[i].name);
+
+            document.querySelector('[id*=value_]').onchange = function(){
+                var id = this.id.replace('value_','')
+                if(this.value > 100) this.value = 100;
+                printValue(this.id, 'slider_' + id);
+                document.getElementById(id).dataset.deep = this.value + "%";
+                var index = arrayObjectIndexOf(draggers, id, "name"); // 1
+                if (index > -1) {
+                    draggers[index].deep = this.value + "%";
+                }
+                createGradient(bgColor.value);
+            }
+            document.querySelector('[id*=value_]').addEventListener("keypress", function (e) {
+               if (e.which < 48 || e.which > 57) { e.preventDefault(); }
+            });
             
             document.querySelector('[id*=slider_]').onchange = function(){
                 var id = this.id.replace('slider_','')
@@ -1375,7 +1425,7 @@ document.addEventListener("DOMContentLoaded", function() {
             tr.querySelector(".c_name").innerHTML = draggers[i].name;
             tr.querySelector(".c_posX").innerHTML = draggers[i].posX;
             tr.querySelector(".c_posY").innerHTML = draggers[i].posY;
-            tr.querySelector(".c_colour").innerHTML = draggers[i].colour;
+            tr.querySelector(".input_colour").value = draggers[i].colour;
         }
     }
 
