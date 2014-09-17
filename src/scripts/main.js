@@ -355,6 +355,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
+    function hasClass(element, cls) {
+        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    }
+
     var addItem = function(){
         var newE = document.createElement("span");
         newE.setAttribute("draggable","true");
@@ -367,7 +371,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         newE.setAttribute("id","d"+newN);
-        newE.setAttribute("class","dragme");
+        if(hasClass(pointsOp,'hide')){
+            newE.setAttribute("class","dragme hide");
+        } else {
+            newE.setAttribute("class","dragme");
+        }
+
         var newColour = (setC.value !== "" && testColor(setC.value) !== null) ? setC.value : "blue";
         setC.value = "";
         newE.setAttribute("data-colour",newColour);
