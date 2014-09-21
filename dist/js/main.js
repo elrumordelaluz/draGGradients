@@ -1142,7 +1142,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     [].forEach.call(document.querySelectorAll('.dragme'), function(el){
         el.addEventListener('dragstart',drag_start,false);
-        draggers.push(new Dragger( el.id, (el.offsetLeft*100/containerWidth).toFixed(2) + '%', (el.offsetTop*100/containerHeight).toFixed(2) + '%', "#fff" , "50%"));
+        draggers.push(new Dragger( el.id, (el.offsetLeft*100/containerWidth).toFixed(2) + '%', (el.offsetTop*100/containerHeight).toFixed(2) + '%', el.dataset.colour , el.dataset.deep));
     });
 
 
@@ -1429,6 +1429,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     createRows();
+    createGradient(bgColor.value);
 
     function maxNumber() {
         var numbers = [];
@@ -1497,7 +1498,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var div = document.getElementById('canvas');
 
-
     function RadialGradients(q, options){
         this.q = q;
         this.options = extend( {}, this.options );
@@ -1515,7 +1515,6 @@ document.addEventListener("DOMContentLoaded", function() {
             var newID = "d" + newN;
             newE.setAttribute("id",newID);
             newE.setAttribute("class","dragme");
-
             
             if(this.options[newID] instanceof Object) {
                 newE.setAttribute("data-colour",this.options[newID].color || 'rgba(255,255,255,0.5)');
