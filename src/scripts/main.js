@@ -165,12 +165,12 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.style.background = gradient.toString();
                 
         // Export stuff
-            console.log(gradient.toString());
+            //console.log(gradient.toString());
             var obj = draggers.reduce(function(o, v, i) {
               o[i] = v;
               return o;
             }, {});
-            console.log(JSON.stringify(obj));
+            //console.log(JSON.stringify(obj));
         // Export stuff
 
     }
@@ -401,27 +401,50 @@ document.addEventListener("DOMContentLoaded", function() {
     
     'use strict';
 
+    function extend( a, b ) {
+        for( var key in b ) { 
+            if( b.hasOwnProperty( key ) ) {
+                a[key] = b[key];
+            }
+        }
+        return a;
+    }
+
     var div = document.getElementById('canvas');
 
 
     function RadialGradients(q, options){
         this.q = q;
-        this.options = options;
+        this.options = extend( {}, this.options );
+        extend( this.options, options );
         this._init();
     }
 
     RadialGradients.prototype._init = function(){
-        var newE = document.createElement("span");
-        newE.setAttribute("draggable","true");
-        var newN = 2;
-        document.querySelector('.points').classList.remove('empty');
-        newE.setAttribute("id","d"+newN);
-        newE.setAttribute("class","dragme");
-        newE.setAttribute("data-colour","rgba(255,34,79,0.5)");
-        newE.setAttribute("data-deep","50%");
+        
+        for( var i = 1; i <= this.q; i++ ){
+            var newE = document.createElement("span");
+            newE.setAttribute("draggable","true");
+            var newN = i;
+            document.querySelector('.points').classList.remove('empty');
+            var newID = "d" + newN;
+            newE.setAttribute("id",newID);
+            newE.setAttribute("class","dragme");
 
-        div.appendChild(newE);
-        //console.log(this.options);
+            
+            if(this.options[newID] instanceof Object) {
+                newE.setAttribute("data-colour",this.options[newID].color || 'rgba(255,255,255,0.5)');
+                newE.setAttribute("data-deep",this.options[newID].deep || '100%');
+                newE.style.left = this.options[newID].left;
+                newE.style.top = this.options[newID].top;
+            } else {
+                newE.setAttribute("data-colour", 'rgba(255,255,255,0.5)');
+                newE.setAttribute("data-deep", '100%');
+            }
+
+            div.appendChild(newE);
+        }
+    
     }
     
     // to global 

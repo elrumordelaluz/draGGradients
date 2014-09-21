@@ -16,7 +16,7 @@
 	</header>
 
 	<div id="canvas">
-	  <span draggable="true" class="dragme" id="d1" data-colour="#ffffff" data-deep="50%"></span>
+	 <!--  <span draggable="true" class="dragme" id="d1" data-colour="#ffffff" data-deep="50%"></span> -->
 		
 		<!-- Nodes -->
 	  <input type="checkbox" id="open_config">
@@ -75,8 +75,19 @@
 
 	<script type="text/javascript" src="dist/js/main.js"></script>
 	<script type="text/javascript">
-		new RadialGradients(2, {
-			a: 'hola'
+		new RadialGradients(3,{
+			
+			d2:{
+				color: 'yellow',
+				left: '25%',
+				top: '25%'
+			},
+			d3:{
+				color: 'green',
+				deep: '80%',
+				left: '75%',
+				top: '15%'
+			}
 		});
 	</script>
 </body>
