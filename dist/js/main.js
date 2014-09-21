@@ -1179,7 +1179,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
 
 
-
     function drag_start(event) {
         var style = window.getComputedStyle(event.target, null);
 
@@ -1483,5 +1482,36 @@ document.addEventListener("DOMContentLoaded", function() {
     div.addEventListener('drop',drop,false); 
 });
 
+;(function(window) {
+    
+    'use strict';
+
+    var div = document.getElementById('canvas');
+
+
+    function RadialGradients(q, options){
+        this.q = q;
+        this.options = options;
+        this._init();
+    }
+
+    RadialGradients.prototype._init = function(){
+        var newE = document.createElement("span");
+        newE.setAttribute("draggable","true");
+        var newN = 2;
+        document.querySelector('.points').classList.remove('empty');
+        newE.setAttribute("id","d"+newN);
+        newE.setAttribute("class","dragme");
+        newE.setAttribute("data-colour","rgba(255,34,79,0.5)");
+        newE.setAttribute("data-deep","50%");
+
+        div.appendChild(newE);
+        //console.log(this.options);
+    }
+    
+    // to global 
+    window.RadialGradients = RadialGradients;
+
+})(window);
 
 
