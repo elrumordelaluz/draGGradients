@@ -241,9 +241,9 @@ document.addEventListener("DOMContentLoaded", function() {
             var inputColor = document.createElement("input");
             inputColor.setAttribute('id','col_' + draggers[i].name);
             inputColor.setAttribute('type','text');
-            inputColor.setAttribute('class','color {hash:true,caps:false,pickerFaceColor:\'transparent\',pickerFace:3,pickerBorder:0,pickerInsetColor:\'black\'} input_colour');
+            inputColor.setAttribute('class','color {adjust:false,hash:true,caps:false,pickerFaceColor:\'transparent\',pickerFace:3,pickerBorder:0,pickerInsetColor:\'black\'} input_colour');
             inputColor.setAttribute('value',draggers[i].colour);
-            new jscolor.color(inputColor, {hash:true,caps:false,pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetColor:'black'});
+            new jscolor.color(inputColor, {adjust:false, hash:true,caps:false,pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetColor:'black'});
             cell4.appendChild(inputColor);
             document.querySelector('[id*=col_]').onchange = function(){
                 var id = this.id.replace('col_','')
@@ -377,15 +377,15 @@ document.addEventListener("DOMContentLoaded", function() {
             newE.setAttribute("class","dragme");
         }
 
-        var newColour = (setC.value !== "" && testColor(setC.value) !== null) ? setC.value : "blue";
+        var newColour = (setC.value !== "" && testColor(setC.value) !== null) ? setC.value : "rgba(255,255,255,0.5)";
         setC.value = "";
         newE.setAttribute("data-colour",newColour);
-        newE.setAttribute("data-deep","50%");
+        newE.setAttribute("data-deep","100%");
         
         div.appendChild(newE);
 
         newE.addEventListener('dragstart',drag_start,false);
-        draggers.push(new Dragger( newE.id, (newE.offsetLeft*100/containerWidth).toFixed(2) + '%', (newE.offsetTop*100/containerHeight).toFixed(2) + '%', newColour , "50%"));
+        draggers.push(new Dragger( newE.id, (newE.offsetLeft*100/containerWidth).toFixed(2) + '%', (newE.offsetTop*100/containerHeight).toFixed(2) + '%', newColour , "100%"));
         
         createRows();
         createGradient(bgColor.value)
@@ -397,6 +397,9 @@ document.addEventListener("DOMContentLoaded", function() {
     div.addEventListener('dragover',drag_over,false); 
     div.addEventListener('drop',drop,false); 
 });
+
+
+
 
 ;(function(window) {
     
@@ -411,7 +414,8 @@ document.addEventListener("DOMContentLoaded", function() {
         return a;
     }
 
-    var div = document.getElementById('canvas');
+    var div = document.getElementById('canvas'),
+        bgColor = document.getElementById('bg-color')
 
     function RadialGradients(q, options){
         this.q = q;
@@ -422,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     RadialGradients.prototype._init = function(){
         
-        for( var i = 1; i <= this.q; i++ ){
+        for( var i = 1, len = (this.q < 10) ? this.q : 10; i <= len; i++ ){
             var newE = document.createElement("span");
             newE.setAttribute("draggable","true");
             var newN = i;
@@ -443,6 +447,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
             div.appendChild(newE);
         }
+
+        if(this.options.bg) {
+            bgColor.value = this.options.bg;
+        }
+
     
     }
     

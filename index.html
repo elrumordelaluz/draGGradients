@@ -29,7 +29,7 @@
 			<div class="add">
 				<form onsubmit="return false;">
 					<button id="add_point">+</button>
-					<input type="text" id="set_colour" class="color {hash:true,caps:false,pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetColor:'black'}" placeholder="Color (all valid html)">
+					<input type="text" id="set_colour" class="color {adjust:false,hash:true,caps:false,pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetColor:'black'}" placeholder="Color (all valid html)">
 				</form>
 			</div>
 			
@@ -69,25 +69,22 @@
 		</ul>
 		
 	</div> 
-	
-	
 
 
 	<script type="text/javascript" src="dist/js/main.js"></script>
 	<script type="text/javascript">
-		new RadialGradients(3,{
-			
-			d2:{
-				color: 'yellow',
-				left: '25%',
-				top: '25%'
+		new RadialGradients(2,{
+			d1:{
+				color: '#54a4ff',
+				left: '94%',
+				top: '88%'
 			},
-			d3:{
-				color: 'green',
-				deep: '80%',
-				left: '75%',
-				top: '15%'
-			}
+			d2:{
+				color: '#ff94fb',
+				left: '7%',
+				top: '16%'
+			},
+			bg: '#000'
 		});
 	</script>
 </body>
