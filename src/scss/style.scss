@@ -232,7 +232,7 @@ input:focus, input:active { outline:none;}
   position: absolute;
   left: 10px;
   bottom: 10px;
-  width: 200px;
+  
 }
 #bg-color {
   width: 20px;
@@ -279,4 +279,8 @@ input:focus, input:active { outline:none;}
   padding:5px;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
+}
+
+#presets {
+  
 }

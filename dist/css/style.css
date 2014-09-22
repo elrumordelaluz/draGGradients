@@ -277,7 +277,6 @@ input:focus, input:active {
   position: absolute;
   left: 10px;
   bottom: 10px;
-  width: 200px;
 }
 
 #bg-color {
