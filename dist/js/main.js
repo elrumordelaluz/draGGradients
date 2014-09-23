@@ -1166,7 +1166,17 @@ jscolor.install();
         x.value = y.value;
     }
 
-
+    function toPercent(side, value){
+        switch(side){
+            case "w":
+                return (value*100/containerWidth).toFixed(2) + '%';
+                break;
+            case "h":
+                return (value*100/containerHeight).toFixed(2) + '%';
+                break;
+            default: return;
+        }
+    }
 
 
 
@@ -1263,9 +1273,10 @@ jscolor.install();
 
         [].forEach.call(document.querySelectorAll('.dragme'), function(el){
             el.addEventListener('dragstart',drag_start,false);
-            draggers.push(new Dragger( el.id, (el.offsetLeft*100/containerWidth).toFixed(2) + '%', (el.offsetTop*100/containerHeight).toFixed(2) + '%', el.dataset.colour , el.dataset.deep));
+            draggers.push(new Dragger( el.id, toPercent("w", el.offsetLeft) , toPercent("h", el.offsetTop) , el.dataset.colour , el.dataset.deep));
         });
 
+        //alert(draggers[0].posY)
         createRows();
         createGradient(bgColor.value);
     }
@@ -1279,7 +1290,7 @@ jscolor.install();
         (parseInt(style.getPropertyValue("top"),10) - event.clientY) ];
 
         event.dataTransfer.setData("text/plain",draggerData);
-
+        
         // highlighting actual
         document.getElementById('r_' +  event.target.id).classList.add('current');
     }
@@ -1287,8 +1298,8 @@ jscolor.install();
 
     function drag_over(event) { 
         var dm = document.getElementById(draggerData[0]);
-        dm.style.left = ((event.clientX + parseInt(draggerData[1],10))*100/containerWidth).toFixed(2) + '%';
-        dm.style.top = ((event.clientY + parseInt(draggerData[2],10)) *100/containerHeight).toFixed(2) + '%';
+        dm.style.left = toPercent("w", event.clientX);
+        dm.style.top = toPercent("h", event.clientY);
         event.preventDefault();
         return false;
     }
@@ -1296,9 +1307,8 @@ jscolor.install();
 
     function drop(event) { 
         var dm = document.getElementById(draggerData[0]);
-
-        dm.style.left = ((event.clientX + parseInt(draggerData[1],10))*100/containerWidth).toFixed(2) + '%';
-        dm.style.top = ((event.clientY + parseInt(draggerData[2],10)) *100/containerHeight).toFixed(2) + '%';
+        dm.style.left = toPercent("w", event.clientX);
+        dm.style.top = toPercent("h", event.clientY);
 
         for (var i = 0; i < draggers.length; i++) {
             if(draggers[i].name == draggerData[0]){
