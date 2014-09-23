@@ -37,22 +37,29 @@ body {
   z-index: 300;
   //
 } 
+
+%text {
+  color:rgba(#f3f3f3,.4)!important;
+  text-shadow: 1px 1px rgba(#333,.4);
+}
 .points {
   position: absolute;
   top: 34px;
   right: 0;
-  color:white;
-  font-weight: 100;
+  @extend %text;
+  font-weight: 300;
   font-size: 12px;
   td {
     transition: background-color .3s;
     background-color: rgba(255,255,255,0.2);
-    padding: 4px 10px;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    padding: 3px 7px;
     border:none;
     margin: 0;
+    input { @extend %text; }
   }
   transition:transform .3s;
-  transform:translateX(100%) translateX(-40px);
+  transform:translateX(100%) translateX(-37px);
   /*&:hover, */#open_config:checked ~ & {
     transform: translateX(0px);
   }
@@ -104,6 +111,7 @@ input:focus, input:active { outline:none;}
 #set_colour,#add_point {
   border:0;
   background-color: rgba(255,255,255,0.2);
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
   height: 30px;
   outline: none;
   margin: 0;
@@ -115,26 +123,26 @@ input:focus, input:active { outline:none;}
   margin-left: 2px;
   padding-left: 10px;
   width: 200px;
-  color: white;
+  @extend %text;
   font-family: 'Lato', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   transition: background-color .3s;
   &:focus {
     background-color: rgba(255,255,255,0.1);
-    &::-webkit-input-placeholder { color: rgba(255,255,255,0.3); }
-    &:-moz-placeholder { color: rgba(255,255,255,0.3);}
-    &::-moz-placeholder {  color: rgba(255,255,255,0.3);}
-    &:-ms-input-placeholder {   color: rgba(255,255,255,0.3); }
+    &::-webkit-input-placeholder { color:rgba(#f3f3f3,.2); text-shadow: 1px 1px rgba(#333,.2);}
+    &:-moz-placeholder { color:rgba(#f3f3f3,.2); text-shadow: 1px 1px rgba(#333,.2);}
+    &::-moz-placeholder { color:rgba(#f3f3f3,.2); text-shadow: 1px 1px rgba(#333,.2);}
+    &:-ms-input-placeholder { color:rgba(#f3f3f3,.2); text-shadow: 1px 1px rgba(#333,.2);}
   }
-  &::-webkit-input-placeholder { color: rgba(255,255,255,0.5); }
-  &:-moz-placeholder { color: rgba(255,255,255,0.5);}
-  &::-moz-placeholder {  color: rgba(255,255,255,0.5);}
-  &:-ms-input-placeholder {   color: rgba(255,255,255,0.5); }
+  &::-webkit-input-placeholder { color:rgba(#f3f3f3,.4); text-shadow: 1px 1px rgba(#333,.4);}
+  &:-moz-placeholder { color:rgba(#f3f3f3,.4); text-shadow: 1px 1px rgba(#333,.4);}
+  &::-moz-placeholder { color:rgba(#f3f3f3,.4); text-shadow: 1px 1px rgba(#333,.4);}
+  &:-ms-input-placeholder { color:rgba(#f3f3f3,.4); text-shadow: 1px 1px rgba(#333,.4);}
 }
 #add_point {
   cursor:pointer;
   display: block;
-  width: 40px;
+  width: 34px;
   margin: 0;
   text-align: center;
   font-size: 16px;
@@ -142,6 +150,7 @@ input:focus, input:active { outline:none;}
   font-family: 'Lato', sans-serif;
   font-weight: 100;
   line-height: 20px;
+  background-color: rgba(#1abc9c,.5);
   &:hover {
     background-color: #1abc9c;
   }
@@ -154,7 +163,7 @@ input:focus, input:active { outline:none;}
 .c_deep-value {
   & input {
     font-family: 'Lato', sans-serif;
-    font-weight: 100;
+    font-weight: 300;
     background-color: transparent;
     text-align: center;
     width: 40px;
@@ -163,21 +172,26 @@ input:focus, input:active { outline:none;}
   }
   &:after { content:'%'}
 }
-
+.c_del{
+  padding: 0;
+}
 .del_item, .up_item {
   border:0;
   background-color: transparent;
   color:white;
-  width: 25px;
+  width: 27px;
   height: 20px;
   cursor:pointer;
   svg {
     display: inline-block;
     vertical-align: middle;
   }
+  &:hover path {
+    fill: rgba(255,255,255,.85);
+  }
 }
-.del_item:hover path { fill: #c0392b; }
-.up_item:hover path { fill: #3498db; }
+// .del_item:hover path { fill: #c0392b; }
+// .up_item:hover path { fill: #3498db; }
 
 #coords{ text-align: center;}
 #help {
@@ -239,6 +253,7 @@ input:focus, input:active { outline:none;}
   height: 20px;
   border:0;
   border:1px solid rgba(255,255,255,0.25);
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
   display: inline-block;
   //background-color: rgba(255,255,255,0.4)!important;
   text-indent: -9999px;
@@ -255,7 +270,8 @@ input:focus, input:active { outline:none;}
   margin-top: 1px;
   position: relative;
   color:inherit;
-  background-color: rgba(255,255,255,0.25);
+  background-color: rgba(255,255,255,0.2);
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
   &:after {
     content:'';
     width: 16px;
@@ -263,6 +279,7 @@ input:focus, input:active { outline:none;}
     left: 4px;
     top: 4px;
     background-color: rgba(255,255,255,0.7);
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
     border-radius:50%;
     position: absolute;
   }

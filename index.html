@@ -9,7 +9,7 @@
 <body>
 	
 	<header class="header">
-		<a href="#">g<sub>R</sub>adienst</a>
+		<a href="#">g<small><sup>R</sup></small>adienst</a>
 	</header>
 
 	<div id="canvas">
@@ -37,11 +37,9 @@
 			</div>
 			<input id="bg-color" type="text" class="color {hash:true,caps:false,pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetColor:'black'}" value="#000">
 
-			<select id="presets"onchange="changePreset()">
-			  <option value="" disabled selected >Presets</option>
-			  <option value="2">bourbon</option>
-			  <option value="2">2</option>
-			  <option value="3">3</option>
+			<select id="presets" onchange="changePreset()">
+			  <option value="" disabled selected >Presets form uigradients</option>
+			  
 			</select>
 		</div>
 
@@ -75,6 +73,7 @@
 		
 	</div> 
 	
+	<div id="random" style="position: absolute; z-index: 9999; width: 10px; height: 10px; background-color:red; left: 50%; top: 10px;"></div>
 	
 
 	<script type="text/javascript" src="dist/js/main.js"></script>
@@ -90,28 +89,67 @@
 				left: '7%',
 				top: '16%'
 			},
-			bg: '#000'
+			bg: 'transparent'
 		});
+
+
+		var random = document.getElementById('random');
+		random.onclick = function(){
+			var q = Math.floor(Math.random() * 10) + 1;
+			var opt = {};
+			for (var i = 1; i <= q; i++) {
+				opt["d" + i] = {
+					color: '#'+Math.floor(Math.random()*16777215).toString(16), // http://www.paulirish.com/2009/random-hex-color-code-snippets/
+					left: (Math.floor(Math.random() * 97) + 1) + "%",
+					top: (Math.floor(Math.random() * 97) + 1) + "%",
+					deep: (Math.floor(Math.random() * 97) + 1) + "%"
+				}
+			};
+			var gradient = new RadialGradients(q, opt);
+		}
+
+		/*
+		 * 
+		 * Presets --  Stuff from uigradients
+		 *
+		 */
 
 		var presets = document.getElementById("presets");
 
-		var bourbon = {
-			d1: {
-				color: '#EC6F66',
-				left: '5%',
-				top:'5%'
-			},
-			d2: {
-				color: '#F3A183',
-				left: '97%',
-				top:'97%'
-			},
-			bg: '#fff'
-		}
+		function setPreset(name, colour1, colour2){
+   		this.name = name;
+   		this.d1 = {
+   			color: colour1,
+   			left: '2%',
+				top: (Math.floor(Math.random() * 99) + 1) + "%"
+   		};
+   		this.d2 = {
+   			color: colour2,
+   			left: '98%',
+				top: (Math.floor(Math.random() * 99) + 1) + "%"
+   		}
+   	}
+
+
+		var request = new XMLHttpRequest();
+   	request.open("GET", "uiGradients.json", false);
+   	request.send(null)
+   	var uiGradients = JSON.parse(request.responseText);
+   
+   	var uiG = {};
+   	for(key in uiGradients){
+   		uiG[uiGradients[key].name] = new setPreset(uiGradients[key].name, uiGradients[key].colour1, uiGradients[key].colour2);
+   		var opt = document.createElement('option');
+	    opt.value = 2;
+	    opt.innerHTML = uiGradients[key].name;
+	    presets.appendChild(opt);
+   	}	
 
 		function changePreset(){
-			new RadialGradients(presets.options[presets.selectedIndex].value, eval(presets.options[presets.selectedIndex].innerHTML))
+			new RadialGradients(presets.options[presets.selectedIndex].value, uiG[presets.options[presets.selectedIndex].innerHTML])
 		}
+
+
 	</script>
 </body>
 </html>

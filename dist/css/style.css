@@ -42,17 +42,21 @@ body {
   z-index: 300;
 }
 
+.points, .points td input, #set_colour {
+  color: rgba(243, 243, 243, 0.4) !important;
+  text-shadow: 1px 1px rgba(51, 51, 51, 0.4);
+}
+
 .points {
   position: absolute;
   top: 34px;
   right: 0;
-  color: white;
-  font-weight: 100;
+  font-weight: 300;
   font-size: 12px;
   -webkit-transition: -webkit-transform .3s;
           transition: transform .3s;
-  -webkit-transform: translateX(100%) translateX(-40px);
-          transform: translateX(100%) translateX(-40px);
+  -webkit-transform: translateX(100%) translateX(-37px);
+          transform: translateX(100%) translateX(-37px);
   /*&:hover, */
   min-height: 30px;
   min-width: 400px;
@@ -61,7 +65,8 @@ body {
   -webkit-transition: background-color .3s;
           transition: background-color .3s;
   background-color: rgba(255, 255, 255, 0.2);
-  padding: 4px 10px;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  padding: 3px 7px;
   border: none;
   margin: 0;
 }
@@ -126,6 +131,7 @@ input:focus, input:active {
 #set_colour, #add_point {
   border: 0;
   background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   height: 30px;
   outline: none;
   margin: 0;
@@ -138,9 +144,8 @@ input:focus, input:active {
   margin-left: 2px;
   padding-left: 10px;
   width: 200px;
-  color: white;
   font-family: 'Lato', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   -webkit-transition: background-color .3s;
           transition: background-color .3s;
 }
@@ -148,34 +153,42 @@ input:focus, input:active {
   background-color: rgba(255, 255, 255, 0.1);
 }
 #set_colour:focus::-webkit-input-placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(243, 243, 243, 0.2);
+  text-shadow: 1px 1px rgba(51, 51, 51, 0.2);
 }
 #set_colour:focus:-moz-placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(243, 243, 243, 0.2);
+  text-shadow: 1px 1px rgba(51, 51, 51, 0.2);
 }
 #set_colour:focus::-moz-placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(243, 243, 243, 0.2);
+  text-shadow: 1px 1px rgba(51, 51, 51, 0.2);
 }
 #set_colour:focus:-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(243, 243, 243, 0.2);
+  text-shadow: 1px 1px rgba(51, 51, 51, 0.2);
 }
 #set_colour::-webkit-input-placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(243, 243, 243, 0.4);
+  text-shadow: 1px 1px rgba(51, 51, 51, 0.4);
 }
 #set_colour:-moz-placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(243, 243, 243, 0.4);
+  text-shadow: 1px 1px rgba(51, 51, 51, 0.4);
 }
 #set_colour::-moz-placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(243, 243, 243, 0.4);
+  text-shadow: 1px 1px rgba(51, 51, 51, 0.4);
 }
 #set_colour:-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(243, 243, 243, 0.4);
+  text-shadow: 1px 1px rgba(51, 51, 51, 0.4);
 }
 
 #add_point {
   cursor: pointer;
   display: block;
-  width: 40px;
+  width: 34px;
   margin: 0;
   text-align: center;
   font-size: 16px;
@@ -183,6 +196,7 @@ input:focus, input:active {
   font-family: 'Lato', sans-serif;
   font-weight: 100;
   line-height: 20px;
+  background-color: rgba(26, 188, 156, 0.5);
 }
 #add_point:hover {
   background-color: #1abc9c;
@@ -195,7 +209,7 @@ input:focus, input:active {
 
 .c_deep-value input {
   font-family: 'Lato', sans-serif;
-  font-weight: 100;
+  font-weight: 300;
   background-color: transparent;
   text-align: center;
   width: 40px;
@@ -206,11 +220,15 @@ input:focus, input:active {
   content: '%';
 }
 
+.c_del {
+  padding: 0;
+}
+
 .del_item, .up_item {
   border: 0;
   background-color: transparent;
   color: white;
-  width: 25px;
+  width: 27px;
   height: 20px;
   cursor: pointer;
 }
@@ -218,13 +236,8 @@ input:focus, input:active {
   display: inline-block;
   vertical-align: middle;
 }
-
-.del_item:hover path {
-  fill: #c0392b;
-}
-
-.up_item:hover path {
-  fill: #3498db;
+.del_item:hover path, .up_item:hover path {
+  fill: rgba(255, 255, 255, 0.85);
 }
 
 #coords {
@@ -284,6 +297,7 @@ input:focus, input:active {
   height: 20px;
   border: 0;
   border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   display: inline-block;
   text-indent: -9999px;
 }
@@ -299,7 +313,8 @@ input:focus, input:active {
   margin-top: 1px;
   position: relative;
   color: inherit;
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
 }
 #points-op:after {
   content: '';
@@ -308,6 +323,7 @@ input:focus, input:active {
   left: 4px;
   top: 4px;
   background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   position: absolute;
 }
