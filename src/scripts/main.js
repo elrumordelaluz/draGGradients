@@ -192,7 +192,6 @@
             draggers.push(new Dragger( el.id, toPercent("w", el.offsetLeft) , toPercent("h", el.offsetTop) , el.dataset.colour , el.dataset.deep));
         });
 
-        //alert(draggers[0].posY)
         createRows();
         createGradient(bgColor.value);
     }

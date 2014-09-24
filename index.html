@@ -36,6 +36,13 @@
 			<div id="points-op">
 			</div>
 			<input id="bg-color" type="text" class="color {hash:true,caps:false,pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetColor:'black'}" value="#000">
+			
+			<div id="random">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+				  <path fill="white" d="M26.125.219c-.075.037-.125.131-.125.281v2.5h-2.5c-1.1 0-1.996.371-2.75 1.125l-4.813 4.813 2.125 2.125 4.813-4.813.031-.031c.091-.061.5-.219.594-.219h2.5v2.5c0 .3.206.387.406.188l5.188-3.875c.2-.2.2-.425 0-.625l-5.188-3.875c-.1-.1-.206-.131-.281-.094zm-26.125 2.781v3h5.5c.1 0 .579.204.625.25l14.625 14.625c.754.754 1.65 1.125 2.75 1.125h2.5v2.5c0 .3.206.387.406.188l5.188-3.875c.2-.2.2-.425 0-.625l-5.188-3.875c-.2-.2-.406-.113-.406.188v2.5h-2.5c-.1 0-.579-.204-.625-.25l-14.625-14.625c-.754-.754-1.65-1.125-2.75-1.125h-5.5zm10.938 10.938l-4.813 4.813c.042-.042-.725.25-.625.25h-5.5v3h5.5c1.085 0 1.889-.279 2.719-1.094l.031-.031 4.813-4.813-2.125-2.125z"
+				  transform="translate(0 3)" />
+				</svg>
+			</div>
 
 			<select id="presets" onchange="changePreset()">
 			  <option value="" disabled selected >Presets form uigradients</option>
@@ -73,11 +80,17 @@
 		
 	</div> 
 	
-	<div id="random" style="position: absolute; z-index: 9999; width: 10px; height: 10px; background-color:red; left: 50%; top: 10px;"></div>
 	
 
 	<script type="text/javascript" src="dist/js/main.js"></script>
 	<script type="text/javascript">
+		
+		/*
+		 * 
+		 * init Gradient
+		 *
+		 */
+
 		new RadialGradients(2,{
 			d1:{
 				color: '#54a4ff',
@@ -89,12 +102,20 @@
 				left: '7%',
 				top: '16%'
 			},
-			bg: 'transparent'
+			bg: '#000'
 		});
 
 
+
+		/*
+		 * 
+		 * Random stuff
+		 *
+		 */
+
 		var random = document.getElementById('random');
-		random.onclick = function(){
+
+		var genOpt = function(){
 			var q = Math.floor(Math.random() * 10) + 1;
 			var opt = {};
 			for (var i = 1; i <= q; i++) {
@@ -104,9 +125,15 @@
 					top: (Math.floor(Math.random() * 97) + 1) + "%",
 					deep: (Math.floor(Math.random() * 97) + 1) + "%"
 				}
+					opt.bg = '#'+Math.floor(Math.random()*16777215).toString(16);
 			};
-			var gradient = new RadialGradients(q, opt);
+			return new RadialGradients(q, opt);
 		}
+		
+		random.onclick = genOpt;
+
+
+
 
 		/*
 		 * 
@@ -129,7 +156,6 @@
 				top: (Math.floor(Math.random() * 99) + 1) + "%"
    		}
    	}
-
 
 		var request = new XMLHttpRequest();
    	request.open("GET", "uiGradients.json", false);

@@ -172,9 +172,8 @@ input:focus, input:active { outline:none;}
   }
   &:after { content:'%'}
 }
-.c_del{
-  padding: 0;
-}
+.c_del{ background-color: rgba(#c0392b,0.85)!important; }
+.c_up { background-color: rgba(#3498db,0.85)!important}
 .del_item, .up_item {
   border:0;
   background-color: transparent;
@@ -190,8 +189,10 @@ input:focus, input:active { outline:none;}
     fill: rgba(255,255,255,.85);
   }
 }
-// .del_item:hover path { fill: #c0392b; }
-// .up_item:hover path { fill: #3498db; }
+.del_item path { fill: white; }
+.up_item path { fill: white; }
+.del_item:hover path { fill: rgba(white,0.85); }
+.up_item:hover path { fill: rgba(white,0.85); }
 
 #coords{ text-align: center;}
 #help {
@@ -257,6 +258,7 @@ input:focus, input:active { outline:none;}
   display: inline-block;
   //background-color: rgba(255,255,255,0.4)!important;
   text-indent: -9999px;
+  vertical-align: middle;
 }
 
 #points-op {
@@ -298,6 +300,12 @@ input:focus, input:active { outline:none;}
   font-weight: 300;
 }
 
-#presets {
+#random {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  background-color: rgba(255,255,255,.3);
+  padding: 5px;
   
 }

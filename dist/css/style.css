@@ -221,7 +221,11 @@ input:focus, input:active {
 }
 
 .c_del {
-  padding: 0;
+  background-color: rgba(192, 57, 43, 0.85) !important;
+}
+
+.c_up {
+  background-color: rgba(52, 152, 219, 0.85) !important;
 }
 
 .del_item, .up_item {
@@ -237,6 +241,22 @@ input:focus, input:active {
   vertical-align: middle;
 }
 .del_item:hover path, .up_item:hover path {
+  fill: rgba(255, 255, 255, 0.85);
+}
+
+.del_item path {
+  fill: white;
+}
+
+.up_item path {
+  fill: white;
+}
+
+.del_item:hover path {
+  fill: rgba(255, 255, 255, 0.85);
+}
+
+.up_item:hover path {
   fill: rgba(255, 255, 255, 0.85);
 }
 
@@ -300,6 +320,7 @@ input:focus, input:active {
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   display: inline-block;
   text-indent: -9999px;
+  vertical-align: middle;
 }
 
 #points-op {
@@ -337,4 +358,13 @@ input:focus, input:active {
   padding: 5px;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
+}
+
+#random {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 5px;
 }
