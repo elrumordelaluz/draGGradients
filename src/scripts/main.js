@@ -109,7 +109,10 @@
         coords = document.getElementById('coords'),
         openConfig = document.getElementById('open_config'),
         bgColor = document.getElementById('bg-color'),
-        pointsOp = document.getElementById('points-op');
+        pointsOp = document.getElementById('points-op'),
+        exportCode = document.getElementById('export_code'),
+        generatedCode = document.getElementById('generated_code'),
+        popup = document.getElementById('popup');
 
 
 
@@ -254,8 +257,9 @@
             gradient.push('radial-gradient(circle at 50% 50%, #000, #000 100%)');    
         }
 
-        document.body.style.background = gradient.toString();
-
+        var newGradient = gradient.toString();
+        document.body.style.background = newGradient;
+        generatedCode.innerHTML = newGradient;
             // Export stuff
                 //console.log(gradient.toString());
                 var obj = draggers.reduce(function(o, v, i) {
@@ -500,6 +504,10 @@
         };
 
         addPoint.onclick = addItem;
+
+        exportCode.onclick = function(){
+            popup.classList.toggle('open')
+        }
 
         div.addEventListener('dragover',drag_over,false); 
         div.addEventListener('drop',drop,false); 

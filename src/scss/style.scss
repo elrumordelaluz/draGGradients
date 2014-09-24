@@ -98,6 +98,17 @@ body {
   }
 }
 
+#export_code {
+   width: 23px;
+  height: 23px;
+  padding: 3px;
+  position: absolute;
+  top: 5px;
+  right: 35px;
+  path { fill:rgba(255,255,255,0.4); }
+  &:hover { path { fill:rgba(255,255,255,0.85); } }
+}
+
 input:focus, input:active { outline:none;}
 
 .add {
@@ -309,3 +320,39 @@ input:focus, input:active { outline:none;}
   padding: 5px;
   
 }
+
+.popup {
+  box-sizing:border-box;
+  position: absolute;
+  width: 300px;
+  top: 50%; left: 50%;
+  background-color: #3f3f3f;
+  padding: 10px;
+  font-weight: 100;
+  color:white;
+  transform:translate(-50%, -50%);
+  transition: all .3s;
+  opacity: 0;
+  visibility: hidden;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.code {
+  box-sizing:border-box;
+  display: block;
+  border:0;
+  width: 100%;
+  
+  background-color: lighten(#3f3f3f,5);
+  white-space: normal;
+  padding: 10px;
+
+  max-height: 250px;
+  overflow: auto;
+}
+
+
+@import "responsive";

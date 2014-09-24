@@ -1,0 +1,36 @@
+@media (max-width: 979px) {
+	
+	#points {
+		transform: translateX(0);
+		width: 100%;
+		height: calc(100% - 85px);
+		top: 43px;
+		overflow: auto;
+		display: none;
+		table {
+			width: 100%;
+			margin-top: 30px;
+		}
+		#open_config:checked ~ & {
+	    display: block;
+	  }
+	}
+
+	.add {
+		position: fixed;
+		top: 0;
+		left: 1px;
+	}
+	
+
+}
+
+@media (max-width: 768px) {
+	.c_deep-value { display: none; }
+	.c_deep-slider input { width: 70px; }
+	#points {
+		td {
+			padding: 2px;
+		}
+	}
+}

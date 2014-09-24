@@ -115,6 +115,21 @@ body {
   fill: #7f7f7f;
 }
 
+#export_code {
+  width: 23px;
+  height: 23px;
+  padding: 3px;
+  position: absolute;
+  top: 5px;
+  right: 35px;
+}
+#export_code path {
+  fill: rgba(255, 255, 255, 0.4);
+}
+#export_code:hover path {
+  fill: rgba(255, 255, 255, 0.85);
+}
+
 input:focus, input:active {
   outline: none;
 }
@@ -367,4 +382,76 @@ input:focus, input:active {
   vertical-align: middle;
   background-color: rgba(255, 255, 255, 0.3);
   padding: 5px;
+}
+
+.popup {
+  box-sizing: border-box;
+  position: absolute;
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  background-color: #3f3f3f;
+  padding: 10px;
+  font-weight: 100;
+  color: white;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transition: all .3s;
+          transition: all .3s;
+  opacity: 0;
+  visibility: hidden;
+}
+.popup.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.code {
+  box-sizing: border-box;
+  display: block;
+  border: 0;
+  width: 100%;
+  background-color: #4c4c4c;
+  white-space: normal;
+  padding: 10px;
+  max-height: 250px;
+  overflow: auto;
+}
+
+@media (max-width: 979px) {
+  #points {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    width: 100%;
+    height: calc(100% - 85px);
+    top: 43px;
+    overflow: auto;
+    display: none;
+  }
+  #points table {
+    width: 100%;
+    margin-top: 30px;
+  }
+  #open_config:checked ~ #points {
+    display: block;
+  }
+
+  .add {
+    position: fixed;
+    top: 0;
+    left: 1px;
+  }
+}
+@media (max-width: 768px) {
+  .c_deep-value {
+    display: none;
+  }
+
+  .c_deep-slider input {
+    width: 70px;
+  }
+
+  #points td {
+    padding: 2px;
+  }
 }
