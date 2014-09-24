@@ -289,7 +289,8 @@ input:focus, input:active {
   left: 10px;
   z-index: 100;
 }
-.header a {
+
+.main-logo {
   text-decoration: none;
   font-weight: 300;
   color: white;
@@ -384,14 +385,18 @@ input:focus, input:active {
   padding: 5px;
 }
 
+.center {
+  text-align: center;
+}
+
 .popup {
   box-sizing: border-box;
   position: absolute;
-  width: 300px;
+  width: 70%;
   top: 50%;
   left: 50%;
   background-color: #3f3f3f;
-  padding: 10px;
+  padding: 10px 20px;
   font-weight: 100;
   color: white;
   -webkit-transform: translate(-50%, -50%);
@@ -399,11 +404,27 @@ input:focus, input:active {
   -webkit-transition: all .3s;
           transition: all .3s;
   opacity: 0;
+  line-height: 1.5em;
   visibility: hidden;
 }
 .popup.open {
   opacity: 1;
   visibility: visible;
+}
+.popup a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+.popup strong {
+  font-weight: 300;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
 
 .code {
@@ -416,6 +437,38 @@ input:focus, input:active {
   padding: 10px;
   max-height: 250px;
   overflow: auto;
+  cursor: pointer;
+  position: relative;
+}
+.code:after {
+  content: 'copied';
+  position: absolute;
+  background-color: #1abc9c;
+  line-height: 30px;
+  bottom: 0;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.code.copied:after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup-icon {
+  width: 18px;
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 @media (max-width: 979px) {

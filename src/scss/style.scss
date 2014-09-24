@@ -220,15 +220,16 @@ input:focus, input:active { outline:none;}
   position: fixed;
   top: 5px;
   left: 10px;
-  z-index: 100;
-  a {
-    text-decoration: none;
-    font-weight: 300;
-    color:white;
-    font-variant: small-caps;
-    font-size: 25px;
-    margin: 0;
-  }
+  z-index: 100;  
+}
+
+.main-logo {
+  text-decoration: none;
+  font-weight: 300;
+  color:white;
+  font-variant: small-caps;
+  font-size: 25px;
+  margin: 0;
 }
 
 .social {
@@ -321,25 +322,43 @@ input:focus, input:active { outline:none;}
   
 }
 
+.center {
+  text-align: center;
+}
 .popup {
   box-sizing:border-box;
   position: absolute;
-  width: 300px;
+  width: 70%;
   top: 50%; left: 50%;
   background-color: #3f3f3f;
-  padding: 10px;
+  padding: 10px 20px;
   font-weight: 100;
   color:white;
   transform:translate(-50%, -50%);
   transition: all .3s;
   opacity: 0;
+  line-height: 1.5em;
   visibility: hidden;
   &.open {
     opacity: 1;
     visibility: visible;
   }
+  a { 
+    color:rgba(255,255,255,.7);
+    text-decoration: none;
+  }
+  strong {
+    font-weight: 300;
+  }
 }
 
+hr {
+  border:0;
+  height: 1px;
+  background-color: rgba(255,255,255,.2);
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
 .code {
   box-sizing:border-box;
   display: block;
@@ -352,7 +371,36 @@ input:focus, input:active { outline:none;}
 
   max-height: 250px;
   overflow: auto;
+  cursor:pointer;
+  position: relative;
+  &:after {
+    content:'copied';
+    position: absolute;
+    background-color:#1abc9c;
+    line-height: 30px;
+    bottom: 0;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    margin: auto;
+    top: 0; right: 0; bottom: 0; left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .2s;
+  }
+  &.copied {
+    &:after {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 }
 
+.popup-icon {
+  width: 18px;
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
 
 @import "responsive";

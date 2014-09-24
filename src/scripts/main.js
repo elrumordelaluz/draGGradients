@@ -112,7 +112,9 @@
         pointsOp = document.getElementById('points-op'),
         exportCode = document.getElementById('export_code'),
         generatedCode = document.getElementById('generated_code'),
-        popup = document.getElementById('popup');
+        popupCode = document.getElementById('popup-code'),
+        popupQ = document.getElementById('popup-q'),
+        qOpener = document.getElementById('q-opener');
 
 
 
@@ -260,6 +262,7 @@
         var newGradient = gradient.toString();
         document.body.style.background = newGradient;
         generatedCode.innerHTML = newGradient;
+        generatedCode.classList.remove('copied');
             // Export stuff
                 //console.log(gradient.toString());
                 var obj = draggers.reduce(function(o, v, i) {
@@ -506,12 +509,29 @@
         addPoint.onclick = addItem;
 
         exportCode.onclick = function(){
-            popup.classList.toggle('open')
+            popupCode.classList.toggle('open')
+        }
+
+        qOpener.onclick = function(){
+            popupQ.classList.toggle('open')
         }
 
         div.addEventListener('dragover',drag_over,false); 
         div.addEventListener('drop',drop,false); 
+
     });
+
+
+    
+    // ZeroClipboard
+    var client = new ZeroClipboard(generatedCode);
+
+    client.on( "ready", function( readyEvent ) {
+
+      client.on( "aftercopy", function( event ) {
+        generatedCode.classList.add('copied');
+      } );
+    } );
 
 
 
