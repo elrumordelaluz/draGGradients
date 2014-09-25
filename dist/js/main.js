@@ -3671,7 +3671,7 @@ jscolor.install();
             return o;
         }, {});
         obj.bg = bgColor.value;
-
+        // console.log(obj)
         localStorage.setItem('value', JSON.stringify(obj));
     }
 
@@ -3880,7 +3880,7 @@ jscolor.install();
 
     document.addEventListener("DOMContentLoaded", function() {
    
-        init();
+        // init();
 
         document.body.onkeyup = function(e){
             if(e.keyCode == 27){
@@ -3911,10 +3911,16 @@ jscolor.install();
         addPoint.onclick = addItem;
 
         exportCode.onclick = function(){
+            if(hasClass(popupQ,'open')){
+                popupQ.classList.remove('open')
+            }
             popupCode.classList.toggle('open')
         }
 
         qOpener.onclick = function(){
+            if(hasClass(popupCode,'open')){
+                popupCode.classList.remove('open')
+            }
             popupQ.classList.toggle('open')
         }
 

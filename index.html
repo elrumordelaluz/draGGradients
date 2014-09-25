@@ -10,7 +10,7 @@
 <body>
 	
 	<header class="header">
-		<a href="#" class="main-logo">g<small><sup>R</sup></small>adienst</a>
+		<a href="#" class="main-logo">dra<small><sup>G</sup><sub>G</sub></small>radients</a>
 	</header>
 
 	<div id="canvas">
@@ -91,7 +91,8 @@
 			  </form>
 			</li>
 			<li>
-				<a href="http://twitter.com/elrumordelaluz" class="link github">
+				<script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script>
+				<a href="https://twitter.com/intent/tweet?text=draGGradients%20--%20create%20custom%20css%20radial-gradients%20dragging%20your%20mouse.&amp;via=elrumordelaluz&amp;url=http://elrumordelaluz.github.com" class="link twitter">
 					<svg viewBox="0 0 273.4 222.2"><path fill="rgba(255,255,255,0.5)" d="M273.4,26.3c-10.1,4.5-20.9,7.5-32.2,8.8c11.6-6.9,20.5-17.9,24.7-31C255,10.5,243,15.2,230.2,17.7
 	        C220,6.8,205.4,0,189.3,0c-31,0-56.1,25.1-56.1,56.1c0,4.4,0.5,8.7,1.5,12.8C88,66.5,46.7,44.2,19,10.3c-4.8,8.3-7.6,17.9-7.6,28.2
 	        c0,19.5,9.9,36.6,25,46.7c-9.2-0.3-17.8-2.8-25.4-7c0,0.2,0,0.5,0,0.7c0,27.2,19.3,49.8,45,55c-4.7,1.3-9.7,2-14.8,2c-3.6,0-7.1-0.4-10.6-1c7.1,22.3,27.9,38.5,52.4,39c-19.2,15-43.4,24-69.7,24c-4.5,0-9-0.3-13.4-0.8c24.8,15.9,54.3,25.2,86,25.2c103.2,0,159.6-85.5,159.6-159.6c0-2.4-0.1-4.9-0.2-7.3C256.4,47.4,265.9,37.5,273.4,26.3z"/></svg>
@@ -109,7 +110,9 @@
 		<div class="popup" id="popup-q">
 
 			<p>
-				<span href="#" class="main-logo">g<small><sup>R</sup></small>adienst</span> is as a simple tool to generate and customize multiple css3 radial gradients.
+				<span href="#" class="main-logo">
+					dra<small><sup>G</sup><sub>G</sub></small>radients
+				</span> is as a simple tool to generate and customize multiple css3 radial gradients.
 			</p>
 			<p>I get back an old project that uses a multiple gradient jpg image as a background and started to generate the same image in css-only. 
 				Instead of code only this image I finished doing this little stuff.</p>
@@ -236,9 +239,9 @@
 
 		 if (window.localStorage && window.localStorage.getItem('value') /*&& window.localStorage.getItem('value') !== "{}" */) {
 		 	 stored = JSON.parse(window.localStorage.getItem('value'));
-		 	 console.log(stored)
 			 var size = 0;
 			 var storedOptions = {};
+
 			 if(Object.getOwnPropertyNames(stored).length === 1){
 			 	randomInit(Math.floor(Math.random() * 3) + 1);
 			 } else {
@@ -251,6 +254,7 @@
 				 		deep: stored[key].deep,
 				 	}
 				 }
+				 console.log(stored)
 				 storedOptions.bg = stored.bg;
 		 	 	 new RadialGradients(size-1, storedOptions);
 			 }
@@ -270,7 +274,7 @@
 		var random = document.getElementById('random');
 
 		var genOpt = function(){
-			var q = Math.floor(Math.random() * 10) + 1;
+			var q = Math.floor(Math.random() * 5) + 1;
 			var opt = {};
 			for (var i = 1; i <= q; i++) {
 				opt["d" + i] = {
@@ -279,8 +283,8 @@
 					top: (Math.floor(Math.random() * 97) + 1) + "%",
 					deep: (Math.floor(Math.random() * 97) + 1) + "%"
 				}
-					opt.bg = '#'+Math.floor(Math.random()*16777215).toString(16);
 			};
+			opt.bg = '#'+Math.floor(Math.random()*16777215).toString(16);
 			return new RadialGradients(q, opt);
 		}
 		
