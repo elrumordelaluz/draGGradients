@@ -466,9 +466,19 @@ hr {
 
 .popup-icon {
   width: 18px;
+  height: 18px;
   margin-right: 5px;
   display: inline-block;
   vertical-align: middle;
+}
+
+#codepen {
+  display: none;
+}
+
+#popup-q {
+  max-height: 88%;
+  overflow: auto;
 }
 
 @media (max-width: 979px) {
