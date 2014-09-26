@@ -3889,6 +3889,12 @@ jscolor.install();
                 } else {
                     openConfig.checked = true;
                 }
+                if(hasClass(popupCode,'open')){
+                    popupCode.classList.remove('open')
+                }
+                if(hasClass(popupQ,'open')){
+                    popupQ.classList.remove('open')
+                }
             }
         };
 
