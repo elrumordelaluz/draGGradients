@@ -1,3 +1,16 @@
+body, html {
+  margin: 0;
+  height: 100%;
+  padding: 0;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: -webkit-radial-gradient(50% 50%, circle, #fff, transparent 50%), -webkit-radial-gradient(50% 50%, circle, black, black 100%);
+  background: radial-gradient(circle at 50% 50%, #fff, transparent 50%), radial-gradient(circle at 50% 50%, black, black 100%);
+  overflow: hidden;
+}
+
 .dragme {
   position: absolute;
   left: 50%;
@@ -11,8 +24,8 @@
   z-index: 340;
   border-radius: 50%;
   cursor: pointer;
-  -webkit-transition: -webkit-transform .3s, opacity .3s;
-          transition: transform .3s, opacity .3s;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+          transition: transform 0.3s, opacity 0.3s;
 }
 .dragme:active, .dragme:hover {
   -webkit-transform: translateX(-5px) translateY(-5px) scale(1.5, 1.5);
@@ -20,19 +33,6 @@
 }
 .dragme.hide {
   opacity: 0;
-}
-
-body, html {
-  margin: 0;
-  height: 100%;
-  padding: 0;
-}
-
-body {
-  font-family: 'Lato', sans-serif;
-  background: -webkit-radial-gradient(50% 50%, circle, #fff, transparent 50%), -webkit-radial-gradient(50% 50%, circle, black, black 100%);
-  background: radial-gradient(circle at 50% 50%, #fff, transparent 50%), radial-gradient(circle at 50% 50%, black, black 100%);
-  overflow: hidden;
 }
 
 #canvas {
@@ -51,21 +51,19 @@ body {
   position: absolute;
   top: 34px;
   right: 0;
-  font-weight: 300;
-  font-size: 12px;
-  -webkit-transition: -webkit-transform .3s;
-          transition: transform .3s;
-  -webkit-transform: translateX(100%) translateX(-37px);
-          transform: translateX(100%) translateX(-37px);
-  /*&:hover, */
   min-height: 30px;
   min-width: 400px;
+  font-weight: 300;
+  font-size: 12px;
+  -webkit-transition: -webkit-transform 0.3s;
+          transition: transform 0.3s;
+  -webkit-transform: translateX(100%) translateX(-37px);
+          transform: translateX(100%) translateX(-37px);
 }
 .points td {
-  -webkit-transition: background-color .3s;
-          transition: background-color .3s;
+  -webkit-transition: background-color 0.3s;
+          transition: background-color 0.3s;
   background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   padding: 3px 7px;
   border: none;
   margin: 0;
@@ -144,13 +142,12 @@ input:focus, input:active {
 }
 
 #set_colour, #add_point {
-  border: 0;
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
-  height: 30px;
-  outline: none;
   margin: 0;
   float: left;
+  height: 30px;
+  border: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  outline: none;
   line-height: 30px;
 }
 
@@ -161,8 +158,8 @@ input:focus, input:active {
   width: 200px;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  -webkit-transition: background-color .3s;
-          transition: background-color .3s;
+  -webkit-transition: background-color 0.3s;
+          transition: background-color 0.3s;
 }
 #set_colour:focus {
   background-color: rgba(255, 255, 255, 0.1);
@@ -332,8 +329,7 @@ input:focus, input:active {
   width: 20px;
   height: 20px;
   border: 0;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: inline-block;
   text-indent: -9999px;
   vertical-align: middle;
@@ -351,7 +347,6 @@ input:focus, input:active {
   position: relative;
   color: inherit;
   background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
 }
 #points-op:after {
   content: '';
@@ -360,7 +355,6 @@ input:focus, input:active {
   left: 4px;
   top: 4px;
   background-color: rgba(255, 255, 255, 0.7);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   position: absolute;
 }
@@ -401,8 +395,8 @@ input:focus, input:active {
   color: white;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  -webkit-transition: all .3s;
-          transition: all .3s;
+  -webkit-transition: all 0.3s;
+          transition: all 0.3s;
   opacity: 0;
   line-height: 1.5em;
   visibility: hidden;
@@ -456,8 +450,8 @@ hr {
   left: 0;
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: opacity .2s;
-          transition: opacity .2s;
+  -webkit-transition: opacity 0.2s;
+          transition: opacity 0.2s;
 }
 .code.copied:after {
   opacity: 1;
