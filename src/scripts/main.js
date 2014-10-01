@@ -554,7 +554,7 @@
         codepen.css = 'body, html { height:100%; overflow:hidden; } \nbody { \n\tbackground-image:' +   newGradient + ';\n}';
         codepen.js = '// draGGradients by @elrumordelaluz http://elrumordelaluz.github.io/draGGradients/';
         codepen.css_prefix_free = "true";
-        codepen.title = "gRadiest: generated radial-gradient";
+        codepen.title = "draGGradients: generated radial-gradient";
         codepen.description = "Pen from draGGradients by @elrumordelaluz http://elrumordelaluz.github.io/draGGradients/";
 
         var codepenArr = new Array();
