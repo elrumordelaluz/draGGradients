@@ -3536,7 +3536,7 @@ jscolor.install();
             el.parentElement.removeChild(el);
         });
 
-        for( var i = 1, len = (this.q < 10) ? this.q : 10; i <= len; i++ ){
+        for( var i = 1, len = (this.q < 15) ? this.q : 15; i <= len; i++ ){
             var newE = document.createElement("span");
             newE.setAttribute("draggable","true");
             var newN = i;
